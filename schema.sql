@@ -5,7 +5,7 @@ CREATE TABLE user_table (
     last_name VARCHAR(50) NOT NULL,
     birth_date DATE NOT NULL,
     email_address VARCHAR(30) NOT NULL,
-    phone_number VARCHAR(15) NOT NULL,
+    phone_number VARCHAR(25) NOT NULL,
     country VARCHAR(30) NOT NULL,
     username VARCHAR(30) NOT NULL,
     created_at DATETIME NOT NULL
