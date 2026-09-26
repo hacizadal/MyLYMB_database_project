@@ -1,0 +1,3 @@
+timestamp,change,algorithm,sql,duration_seconds,error
+1790418824.593882,change-type,blocking,ALTER TABLE user_table MODIFY COLUMN birth_date DATETIME NOT NULL,0.321,
+1790419473.3429916,change-type,copy,"ALTER TABLE user_table MODIFY COLUMN birth_date DATETIME NOT NULL, ALGORITHM=COPY, LOCK=NONE",0.277,
