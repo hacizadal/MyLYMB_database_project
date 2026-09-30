@@ -6,7 +6,7 @@ CREATE TABLE user_table (
     birth_date DATE NOT NULL,
     email_address VARCHAR(30) NOT NULL,
     phone_number VARCHAR(25) NOT NULL,
-    country VARCHAR(30) NOT NULL,
+    country VARCHAR(60) NOT NULL,
     username VARCHAR(30) NOT NULL,
     created_at DATETIME NOT NULL
 ) ENGINE=InnoDB;
