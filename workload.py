@@ -1,54 +1,50 @@
-import mariadb
-import time
+import argparse
 import csv
 import random
+import time
 from datetime import datetime
 
+import mariadb
 
-# MariaDB connection information
+
 DB_CONFIG = {
-    "host": "localhost",
+    "host": "127.0.0.1",
     "port": 3306,
     "user": "root",
     "password": "labpass",
-    "database": "schemalab"
+    "database": "schemalab",
 }
 
-# File where workload results will be saved
 CSV_FILE = "workload.csv"
 
 
-# Connect to MariaDB
 def connect_database():
     try:
         connection = mariadb.connect(**DB_CONFIG)
         print("Connected to MariaDB.")
         return connection
-
     except mariadb.Error as error:
         print("Could not connect to MariaDB:", error)
         return None
 
 
-# Save each operation result to the CSV file
-def log_result(operation, latency, status, error=""):
-    with open(CSV_FILE, "a", newline="") as file:
+def log_result(operation, latency_ms, status, error="", csv_file=CSV_FILE):
+    with open(csv_file, "a", newline="", encoding="utf-8") as file:
         writer = csv.writer(file)
+        writer.writerow(
+            [
+                datetime.now().isoformat(timespec="milliseconds"),
+                operation,
+                round(latency_ms, 3),
+                status,
+                error,
+            ]
+        )
 
-        writer.writerow([
-            datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
-            operation,
-            round(latency, 3),
-            status,
-            error
-        ])
 
-
-# Run a SQL operation and measure how long it takes
-def run_operation(connection, operation, sql, values=None):
+def run_operation(connection, operation, sql, values=None, csv_file=CSV_FILE):
     cursor = connection.cursor()
-
-    start_time = time.perf_counter()
+    start = time.perf_counter()
 
     try:
         if values is None:
@@ -57,54 +53,23 @@ def run_operation(connection, operation, sql, values=None):
             cursor.execute(sql, values)
 
         connection.commit()
-
-        latency = (time.perf_counter() - start_time) * 1000
-
-        log_result(
-            operation,
-            latency,
-            "success"
-        )
-
-        print(
-            operation,
-            "-",
-            round(latency, 3),
-            "ms"
-        )
+        latency_ms = (time.perf_counter() - start) * 1000
+        log_result(operation, latency_ms, "success", csv_file=csv_file)
+        print(f"{operation} - {latency_ms:.3f} ms")
 
     except mariadb.Error as error:
-        latency = (time.perf_counter() - start_time) * 1000
-
+        latency_ms = (time.perf_counter() - start) * 1000
         connection.rollback()
-
-        log_result(
-            operation,
-            latency,
-            "error",
-            str(error)
-        )
-
-        print(operation, "failed:", error)
+        log_result(operation, latency_ms, "error", str(error), csv_file)
+        print(f"{operation} failed: {error}")
 
     finally:
         cursor.close()
 
 
-# INSERT a new test user
-def insert_user(connection):
+def insert_user(connection, csv_file=CSV_FILE):
     number = random.randint(100000, 999999)
-
-    first_name = "Test"
-    middle_name = "Workload"
-    last_name = "User"
-
     birth_date = "2000-01-01"
-
-    email = "workload" + str(number) + "@test.com"
-    phone = "+4915" + str(number)
-    country = "Germany"
-    username = "workload_" + str(number)
 
     sql = """
         INSERT INTO user_table
@@ -123,27 +88,20 @@ def insert_user(connection):
     """
 
     values = (
-        first_name,
-        middle_name,
-        last_name,
+        "Test",
+        "Workload",
+        "User",
         birth_date,
-        email,
-        phone,
-        country,
-        username
+        f"workload{number}@test.com",
+        f"+4915{number}",
+        "Germany",
+        f"workload_{number}",
     )
 
-    run_operation(
-        connection,
-        "INSERT",
-        sql,
-        values
-    )
+    run_operation(connection, "INSERT", sql, values, csv_file)
 
 
-# UPDATE one of our test users
-def update_user(connection):
-
+def update_user(connection, csv_file=CSV_FILE):
     sql = """
         UPDATE user_table
         SET country = 'Updated-Germany'
@@ -151,75 +109,60 @@ def update_user(connection):
         ORDER BY id DESC
         LIMIT 1
     """
-
-    run_operation(
-        connection,
-        "UPDATE",
-        sql
-    )
+    run_operation(connection, "UPDATE", sql, csv_file=csv_file)
 
 
-# DELETE one of our test users
-def delete_user(connection):
-
+def delete_user(connection, csv_file=CSV_FILE):
     sql = """
         DELETE FROM user_table
         WHERE username LIKE 'workload_%'
         ORDER BY id ASC
         LIMIT 1
     """
-
-    run_operation(
-        connection,
-        "DELETE",
-        sql
-    )
+    run_operation(connection, "DELETE", sql, csv_file=csv_file)
 
 
-def main():
-
-    # Create CSV and write column names
-    with open(CSV_FILE, "w", newline="") as file:
+def initialise_csv(csv_file):
+    with open(csv_file, "w", newline="", encoding="utf-8") as file:
         writer = csv.writer(file)
+        writer.writerow(["timestamp", "operation", "latency_ms", "status", "error"])
 
-        writer.writerow([
-            "timestamp",
-            "operation",
-            "latency_ms",
-            "status",
-            "error"
-        ])
 
-    # Connect to database
+def main(interval_seconds, csv_file):
+    initialise_csv(csv_file)
+
     connection = connect_database()
-
     if connection is None:
         return
 
     print("Starting workload...")
-    print("Press Ctrl+C to stop.\n")
+    print("Press Ctrl+C to stop.")
 
     try:
-
-        # Keep generating database activity
         while True:
-
-            insert_user(connection)
-
-            update_user(connection)
-
-            delete_user(connection)
-
-            # Small pause before repeating
-            time.sleep(0.1)
-
+            insert_user(connection, csv_file)
+            update_user(connection, csv_file)
+            delete_user(connection, csv_file)
+            time.sleep(interval_seconds)
     except KeyboardInterrupt:
         print("\nWorkload stopped.")
-
     finally:
         connection.close()
         print("Database connection closed.")
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Continuous DML workload for the MariaDB ALTER TABLE tests.")
+    parser.add_argument(
+        "--interval",
+        type=float,
+        default=0.1,
+        help="Seconds to wait between INSERT/UPDATE/DELETE cycles (default: 0.1)",
+    )
+    parser.add_argument(
+        "--out",
+        default=CSV_FILE,
+        help="CSV file for workload measurements (default: workload.csv)",
+    )
+    args = parser.parse_args()
+    main(args.interval, args.out)
