@@ -1,49 +1,60 @@
-from faker import Faker
+"""Populate the clean lab table and verify the committed row count."""
 from datetime import datetime
-
+from faker import Faker
 import mysql.connector
-
-connection = mysql.connector.connect(
-    host="127.0.0.1", #address of database server
-    port=3306, #"door" of address to knock on
-    user="root", #which database user to log in
-    password="labpass", #password for that specific user
-    database="schemalab" #which database to connect to
-)
-
-fake = Faker()
 
 TOTAL_ROWS = 1_000_000
 BATCH_SIZE = 1_000
 
-print("Successfully connected.")
 
-cursor = connection.cursor() #cursor = object used to send SQL commands & get results back through existing connection
+def generate_data():
+    connection = mysql.connector.connect(
+        host="127.0.0.1", port=3306, user="root",
+        password="labpass", database="schemalab",
+    )
+    cursor = connection.cursor()
+    fake = Faker()
+    try:
+        # Refuse to append to an old experiment's data.
+        cursor.execute("SELECT COUNT(*) FROM user_table")
+        if cursor.fetchone()[0] != 0:
+            raise RuntimeError("user_table is not empty. Run reset_database.py first.")
+        insert_query = """
+            INSERT INTO user_table
+            (first_name, middle_name, last_name, birth_date, email_address,
+             phone_number, country, username, created_at)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+        """
+        for start in range(0, TOTAL_ROWS, BATCH_SIZE):
+            # min also handles a final batch smaller than BATCH_SIZE.
+            batch_size = min(BATCH_SIZE, TOTAL_ROWS - start)
+            rows = []
+            for _ in range(batch_size):
+                # Match schema limits, including long phone numbers/country names.
+                rows.append((
+                    fake.first_name()[:50], fake.first_name()[:50],
+                    fake.last_name()[:50], fake.date_of_birth(),
+                    fake.email()[:100], fake.phone_number()[:25],
+                    fake.country()[:60], fake.user_name()[:30], datetime.now(),
+                ))
+            cursor.executemany(insert_query, rows)
+            connection.commit()
+            print(f"Inserted {start + batch_size:,} / {TOTAL_ROWS:,} rows", flush=True)
 
-insert_query = """
-    INSERT INTO user_table
-    (first_name, middle_name, last_name, birth_date, email_address, phone_number, country, username, created_at)
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) 
-"""
-# %s is used as a placeholder for each value
+        # Check the database itself, not just our loop counter.
+        cursor.execute("SELECT COUNT(*) FROM user_table")
+        actual_rows = cursor.fetchone()[0]
+        print(f"Verified user_table row count: {actual_rows:,}", flush=True)
+        if actual_rows != TOTAL_ROWS:
+            raise RuntimeError(f"Expected {TOTAL_ROWS:,} rows; found {actual_rows:,}.")
+        return actual_rows
+    except Exception:
+        connection.rollback()
+        raise
+    finally:
+        cursor.close()
+        connection.close()
 
-for batch_num in range(TOTAL_ROWS // BATCH_SIZE):
-    rows = [] #create an empty list
-    for i in range(BATCH_SIZE): #loops 10 time
-        row = (
-            fake.first_name(),
-            fake.first_name(),
-            fake.last_name(),
-            fake.date_of_birth(),
-            fake.email(),
-            fake.phone_number(),
-            fake.country(),
-            fake.user_name(),
-            datetime.now()
-            )
-        rows.append(row) #add onto already existing list
 
-    cursor.executemany(insert_query, rows)
-    connection.commit()
-
-    print("Inserted batch", batch_num + 1, "-total rows so far:", (batch_num + 1) * BATCH_SIZE)
+if __name__ == "__main__":
+    generate_data()

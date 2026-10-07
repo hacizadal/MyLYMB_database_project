@@ -1,3 +1,7 @@
+-- Drop the child table before its parent so foreign keys do not block reset.
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS user_table;
+
 CREATE TABLE user_table (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,

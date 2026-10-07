@@ -5,6 +5,8 @@ import time
 
 import pymysql
 
+from reset_database import reset_database
+
 
 DB_CONFIG = {
     "host": "127.0.0.1",
@@ -39,6 +41,9 @@ ALGO_CLAUSE = {
 
 
 def run(change, algorithm, out_path):
+    # Every test starts from the same verified baseline, outside ALTER timing.
+    reset_database()
+
     base_sql = CHANGES[change]
     clause = ALGO_CLAUSE[algorithm]
     sql = f"ALTER TABLE user_table {base_sql}"

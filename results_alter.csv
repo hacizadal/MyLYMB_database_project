@@ -1,3 +1,7 @@
 timestamp,change,algorithm,sql,duration_seconds,error
 1790418824.593882,change-type,blocking,ALTER TABLE user_table MODIFY COLUMN birth_date DATETIME NOT NULL,0.321,
 1790419473.3429916,change-type,copy,"ALTER TABLE user_table MODIFY COLUMN birth_date DATETIME NOT NULL, ALGORITHM=COPY, LOCK=NONE",0.277,
+1790778508.0217674,add-index,inplace,"ALTER TABLE user_table ADD INDEX idx_username (username), ALGORITHM=INPLACE, LOCK=NONE",0.043,
+1790778539.9254246,add-index,nocopy,"ALTER TABLE user_table ADD INDEX idx_username (username), ALGORITHM=NOCOPY, LOCK=NONE",0.038,
+1791375600.6738513,add-index,inplace,"ALTER TABLE user_table ADD INDEX idx_username (username), ALGORITHM=INPLACE, LOCK=NONE",0.872,
+1791375902.6738582,add-index,nocopy,"ALTER TABLE user_table ADD INDEX idx_username (username), ALGORITHM=NOCOPY, LOCK=NONE",0.947,
