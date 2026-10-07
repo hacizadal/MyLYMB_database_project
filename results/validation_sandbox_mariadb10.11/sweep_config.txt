@@ -1,0 +1,15 @@
+sweep_id=validation_sandbox_mariadb10.11
+started_utc=2026-09-30T19:44:55Z
+rows=200000
+changes=change-type add-index widen-column-60 widen-column-100 add-fk add-fk-fkchecks-off
+algorithms=default blocking copy copy-shared inplace nocopy instant
+repeats=1
+baseline_secs=4
+after_secs=2
+threads=2
+interval=0.05
+lock_timeout=10
+python=Python 3.12.3
+server_version=10.11.14-MariaDB-0ubuntu0.24.04.1
+buffer_pool_bytes=268435456
+finished_utc=2026-09-30T19:55:48Z

@@ -1,0 +1,17 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.log
+# Benchmark outputs: keep the folder and the curated runs, ignore scratch sweeps.
+results/*
+!results/.gitkeep
+!results/historical/
+!results/validation_sandbox_mariadb10.11/
+results/**/.ready_*
+results/**/reset_*.log
+results/**/workload_*.log
+# Large generated datasets
+*.sql.gz
+*.dump

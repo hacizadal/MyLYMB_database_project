@@ -1,0 +1,9 @@
+timestamp_utc,alter_state,progress_pct,waiting_sessions
+2026-09-30T19:52:42.879+00:00,copy to tmp table,0.688,2
+2026-09-30T19:52:43.131+00:00,copy to tmp table,15.419,2
+2026-09-30T19:52:43.382+00:00,copy to tmp table,27.531,2
+2026-09-30T19:52:43.633+00:00,copy to tmp table,40.643,2
+2026-09-30T19:52:43.884+00:00,copy to tmp table,54.725,2
+2026-09-30T19:52:44.135+00:00,copy to tmp table,70.416,2
+2026-09-30T19:52:44.386+00:00,copy to tmp table,85.228,2
+2026-09-30T19:52:44.637+00:00,copy to tmp table,99.941,2

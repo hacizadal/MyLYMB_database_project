@@ -1,0 +1,5 @@
+pymysql>=1.1
+pandas>=2.0
+matplotlib>=3.7
+numpy>=1.24
+reportlab>=4.0

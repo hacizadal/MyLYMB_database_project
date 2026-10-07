@@ -1,0 +1,43 @@
+change,algorithm,runs,successes,failures,mean_s,median_s,min_s,max_s,first_error
+change-type,default,1,1,0,0.854,0.854,0.854,0.854,
+change-type,blocking,1,1,0,0.883,0.883,0.883,0.883,
+change-type,copy,1,0,1,,,,,"(1846, 'LOCK=NONE is not supported. Reason: COPY algorithm requires a lock. Try LOCK=SHARED')"
+change-type,copy-shared,1,1,0,0.855,0.855,0.855,0.855,
+change-type,inplace,1,0,1,,,,,"(1846, 'ALGORITHM=INPLACE is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+change-type,nocopy,1,0,1,,,,,"(1846, 'ALGORITHM=NOCOPY is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+change-type,instant,1,0,1,,,,,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+add-index,default,1,1,0,0.285,0.285,0.285,0.285,
+add-index,blocking,1,1,0,0.958,0.958,0.958,0.958,
+add-index,copy,1,0,1,,,,,"(1846, 'LOCK=NONE is not supported. Reason: COPY algorithm requires a lock. Try LOCK=SHARED')"
+add-index,copy-shared,1,1,0,0.941,0.941,0.941,0.941,
+add-index,inplace,1,1,0,0.304,0.304,0.304,0.304,
+add-index,nocopy,1,1,0,0.266,0.266,0.266,0.266,
+add-index,instant,1,0,1,,,,,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY')"
+widen-column-60,default,1,1,0,0.043,0.043,0.043,0.043,
+widen-column-60,blocking,1,1,0,0.769,0.769,0.769,0.769,
+widen-column-60,copy,1,0,1,,,,,"(1846, 'LOCK=NONE is not supported. Reason: COPY algorithm requires a lock. Try LOCK=SHARED')"
+widen-column-60,copy-shared,1,1,0,0.727,0.727,0.727,0.727,
+widen-column-60,inplace,1,1,0,0.044,0.044,0.044,0.044,
+widen-column-60,nocopy,1,1,0,0.041,0.041,0.041,0.041,
+widen-column-60,instant,1,1,0,0.05,0.05,0.05,0.05,
+widen-column-100,default,1,1,0,0.052,0.052,0.052,0.052,
+widen-column-100,blocking,1,1,0,0.769,0.769,0.769,0.769,
+widen-column-100,copy,1,0,1,,,,,"(1846, 'LOCK=NONE is not supported. Reason: COPY algorithm requires a lock. Try LOCK=SHARED')"
+widen-column-100,copy-shared,1,1,0,0.965,0.965,0.965,0.965,
+widen-column-100,inplace,1,1,0,0.043,0.043,0.043,0.043,
+widen-column-100,nocopy,1,1,0,0.043,0.043,0.043,0.043,
+widen-column-100,instant,1,1,0,0.047,0.047,0.047,0.047,
+add-fk,default,1,1,0,1.924,1.924,1.924,1.924,
+add-fk,blocking,1,1,0,1.715,1.715,1.715,1.715,
+add-fk,copy,1,0,1,,,,,"(1846, 'LOCK=NONE is not supported. Reason: COPY algorithm requires a lock. Try LOCK=SHARED')"
+add-fk,copy-shared,1,1,0,1.918,1.918,1.918,1.918,
+add-fk,inplace,1,0,1,,,,,"(1846, 'ALGORITHM=INPLACE is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')"
+add-fk,nocopy,1,0,1,,,,,"(1846, 'ALGORITHM=NOCOPY is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')"
+add-fk,instant,1,0,1,,,,,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')"
+add-fk-fkchecks-off,default,1,1,0,0.347,0.347,0.347,0.347,
+add-fk-fkchecks-off,blocking,1,1,0,0.76,0.76,0.76,0.76,
+add-fk-fkchecks-off,copy,1,0,1,,,,,"(1846, 'LOCK=NONE is not supported. Reason: COPY algorithm requires a lock. Try LOCK=SHARED')"
+add-fk-fkchecks-off,copy-shared,1,1,0,0.715,0.715,0.715,0.715,
+add-fk-fkchecks-off,inplace,1,1,0,0.434,0.434,0.434,0.434,
+add-fk-fkchecks-off,nocopy,1,1,0,0.499,0.499,0.499,0.499,
+add-fk-fkchecks-off,instant,1,0,1,,,,,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY')"
