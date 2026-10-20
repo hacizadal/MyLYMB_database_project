@@ -1,6 +1,6 @@
 # MyLYMB Database Project
 
-**Online Schema Change Without External Tools: MariaDB 11.4*+
+**Online Schema Change Without External Tools: MariaDB 11.4**
 
 ![MariaDB](https://img.shields.io/badge/MariaDB-11.4-003545?logo=mariadb)
 ![Docker](https://img.shields.io/badge/Docker-compose-2496ED?logo=docker&logoColor=white)
