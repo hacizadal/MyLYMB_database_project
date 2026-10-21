@@ -354,3 +354,29 @@ distinguishes refused, blocking and non-blocking outcomes, and already points to
 table-copy ALTERs, which held writes for their whole duration, and in-place/no-copy/instant ALTERs, which did not.
 Those observations come from MariaDB 10.11 with small samples; the academic conclusion on MariaDB 11.4
 still requires running `./sweep.sh --rows 1000000 --repeats 3` on the pinned Docker image.
+
+### Leyla: workload tests and sweep checks
+
+Install test dependencies with `python -m pip install -r requirements-dev.txt`, then run
+`python -m pytest -q tests/test_workload.py`. These tests use fake database connections:
+they verify that both profiles target their own tables, failed SQL records the MariaDB
+error number, successful statements log row counts, and disconnects are handled.
+
+Before the full sweep, rehearse a small sweep (requires a running Docker MariaDB):
+
+```bash
+./sweep.sh --rows 1000 --repeats 1 --changes "add-index add-fk" --algorithms "default inplace" --baseline-secs 2 --after-secs 2
+```
+
+For the medium backup sweep (Git Bash / WSL):
+
+```bash
+./sweep.sh --rows 200000 --repeats 1
+```
+
+To check statement starts *during* each ALTER (rather than counting baseline/after
+statements), run `python check_workload.py results/<sweep_id> --min-statements 1`.
+A `LOW` result means the overlap was below the threshold or the workload CSV was
+missing. Fast ALTERs may legitimately have zero overlapping statement starts;
+inspect their duration and the workload CSV before treating this as a workload failure.
+The checker returns exit code 1 for LOW results, 2 for invalid input.
