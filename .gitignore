@@ -15,3 +15,7 @@ results/**/workload_*.log
 # Large generated datasets
 *.sql.gz
 *.dump
+
+# Curated 11.4 terminal evidence (not raw workload traces)
+!results/sweep_20261116_145509_console/
+!results/sweep_20261116_145509_console/**

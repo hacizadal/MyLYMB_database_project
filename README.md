@@ -8,17 +8,29 @@ A project for area 8, "Online schema change, without external tools" for the [Ma
 ![Docker](https://img.shields.io/badge/Docker-compose-2496ED?logo=docker&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![Status](https://img.shields.io/badge/11.4%20benchmark-pending-orange)
+![Status](https://img.shields.io/badge/11.4%20100k%20benchmark-completed-brightgreen)
 
 University project, *Area 8 Tier B: "Online schema change, without external tools"* (MariaDB student database projects, 2026-09).
 
-> **Status.** The tooling is complete and was validated end to end, but on a **MariaDB 10.11** server, not
-> on 11.4 (Docker was not available where the tooling was finalized). The 11.4 benchmark itself is
-> **pending**: see [Results](#14-results). Nothing below presents 10.11 numbers as 11.4 results.
+> **Status (2026-11-16).** Team-reported MariaDB 11.4.13 runs include a 1,000-row
+> compatibility smoke test (42 cases) and a **100,000-row repeated benchmark**
+> (126 ALTER requests, 102 successes, 24 expected error-1846 rejections).
+> [The 100k results](results/sweep_20261116_145509_console/README.md) are
+> transcribed from the supplied terminal output. The original workload CSVs
+> were not provided, so concurrent-write behavior remains unverified here.
+> MariaDB 10.11.14 sandbox measurements remain historical and separately labeled.
 
 ## Contents
 
 1. [Project Overview](#1-project-overview) · 2. [Research Question](#2-research-question) · 3. [Objectives](#3-objectives) · 4. [Technologies](#4-technologies) · 5. [Architecture](#5-architecture) · 6. [Database Schema](#6-database-schema) · 7. [Experiments](#7-experiments) · 8. [Algorithms](#8-algorithms) · 9. [Workload](#9-workload) · 10. [Methodology](#10-methodology) · 11. [Installation](#11-installation) · 12. [Quick Start](#12-quick-start) · 13. [Running the Benchmark](#13-running-the-benchmark) · 14. [Results](#14-results) · 15. [Findings](#15-findings) · 16. [Limitations](#16-limitations) · 17. [Reproducibility](#17-reproducibility) · 18. [Team](#18-team) · 19. [Project Structure](#19-project-structure) · 20. [Lessons Learned](#20-lessons-learned) · 21. [Conclusion](#21-conclusion)
+
+## Latest MariaDB 11.4 evidence and Windows Git Bash notes
+
+* [11.4.13 repeated 100k-row results (126 console-observed runs)](results/sweep_20261116_145509_console/README.md), [CSV summary](results/sweep_20261116_145509_console/console_alter_summary.csv), and [chart](results/sweep_20261116_145509_console/console_duration_comparison.png).
+* [11.4.13 initial 1k-row smoke-test observations](docs/11_4_results_and_next_steps.md).
+* For Windows Git Bash: `source .venv/Scripts/activate`, then `bash sweep.sh --rows 1000 --repeats 1`. The runner now uses the active virtual environment by default; `PYTHON=python bash sweep.sh ...` is also supported.
+* `analysis/classified_alter_results.csv` distinguishes **successful ALTER**, **expected error 1846**, and **unexpected failure** without altering the raw CSV. A rejected algorithm is not a successful migration.
+* For a research-grade comparison, use `bash sweep.sh --rows 100000 --repeats 3`, record machine specifications, and inspect the workload latency sample counts before drawing conclusions.
 
 ## 1. Project Overview
 
@@ -206,10 +218,28 @@ memory in the validation environment.
 
 ## 14. Results
 
-### 14.1 Validated benchmark results (MariaDB 11.4)
+### 14.1 MariaDB 11.4.13: team-run repeated benchmark (100,000 rows)
 
-**Not run.** *Results will be populated after running the benchmark* (`./sweep.sh --rows 1000000 --repeats 3`)
-against the `mariadb:11.4` container. Expected location: `results/sweep_<timestamp>/analysis/`.
+The team supplied the full terminal transcript of `PYTHON=python bash sweep.sh --rows 100000 --repeats 3`:
+**126 runs, 102 successes, 24 expected error-1846 rejections, no unexpected DDL failures**.
+Three repetitions were completed for each of the 42 change/algorithm combinations.
+
+[Full evidence, caveats and findings](results/sweep_20261116_145509_console/README.md) ·
+[126 transcribed runs](results/sweep_20261116_145509_console/console_alter_runs.csv) ·
+[42-row statistical summary](results/sweep_20261116_145509_console/console_alter_summary.csv) ·
+[DDL timing chart](results/sweep_20261116_145509_console/console_duration_comparison.png).
+
+| Change | INSTANT mean | NOCOPY mean | COPY mean |
+|---|---:|---:|---:|
+| Widen VARCHAR to 60 | 0.0277 s | 0.0303 s | 0.4313 s |
+| Widen VARCHAR to 100 | 0.0267 s | 0.0360 s | 0.4117 s |
+| Add index | refused (1846) | 0.1280 s | 0.4623 s |
+| Add FK, checks OFF | refused (1846) | 0.1320 s | 0.5567 s |
+
+**Evidence boundary:** These are console-derived DDL timings, **not** the original workload traces.
+The user must add the generated `workload_*.csv` files before claiming nonblocking writes,
+concurrent-write p95, throughput or error rates for this 11.4 run. Hardware specifications
+and Docker limits are not yet recorded.
 
 ### 14.2 Pipeline validation run (sandbox, MariaDB **10.11.14**, not 11.4)
 
@@ -257,14 +287,16 @@ benchmark**: the table was almost empty and the workload never ran at the same t
 | `results_alter_preliminary.csv` | 2 ALTERs on a near-empty table (`change-type`: blocking 0.321 s, copy 0.277 s; the second ran on an already-converted column). |
 | `workload_baseline_preliminary.csv` | 477 statements over 19 s, no ALTER, 0 errors. Median INSERT 6.88 ms, UPDATE 4.31 ms, DELETE 3.93 ms. |
 
-The historical `copy` row (`ALGORITHM=COPY, LOCK=NONE`, no error) **contradicts** the sandbox run, where that clause was
-refused in 6 of 6 experiments (error 1846). Unresolved: to be checked on 11.4.
+The historical `copy` row (`ALGORITHM=COPY, LOCK=NONE`, no error) **contradicted** the 10.11 sandbox run, where that clause was
+refused in 6 of 6 experiments (error 1846). The 11.4.13 terminal benchmark now records successful COPY requests across all six changes; this is a **version-sensitive observation**. See the 11.4 result evidence for limitations.
 
 ## 15. Findings
 
-**MariaDB 11.4: pending benchmark execution.**
+**MariaDB 11.4.13: repeated 100,000-row DDL timing benchmark completed (terminal evidence); concurrent-write analysis pending original workload traces.**
 
-Indicative observations from the 10.11 validation run only (to be confirmed or refuted on 11.4; one repetition, small samples):
+On this dataset, INSTANT widened VARCHAR to 60 in 0.0277 s mean versus 0.4313 s for COPY (~15.6×); NOCOPY added an index in 0.1280 s versus 0.4623 s for COPY (~3.6×). All 24 rejected requests were expected error-1846 cases. These measurements describe DDL wall time only, not online write availability. See [the complete 11.4 results](results/sweep_20261116_145509_console/README.md).
+
+Historical observations from the 10.11 validation run only (one repetition, small samples; do not generalize to 11.4):
 
 * An explicit algorithm is never silently downgraded: unsupported requests fail with 1846 and a reason
   (e.g. `Cannot change column type`, `COPY algorithm requires a lock`, `Adding foreign keys needs foreign_key_checks=OFF`).
@@ -284,7 +316,7 @@ Indicative observations from the 10.11 validation run only (to be confirmed or r
 * A short ALTER overlaps few workload statements, so use large datasets (`--rows 1000000`) and several `--repeats` for percentiles.
 * Workload rows are disjoint from the ALTER's scan targets; contention on the *same rows* is not modelled.
 * The `orders` foreign key is added with no orphan rows, so `foreign_key_checks=0` does not hide invalid data here.
-* `docker-compose.yml` and the 11.4 image were **not executed** where the project was finalized (no Docker): the compose file was only checked syntactically.
+* The team ran MariaDB 11.4.13 in Docker on its Windows host; this distribution was assembled without rerunning the database. The full raw workload files were not supplied.
 * Duration is wall-clock, including time spent waiting for a metadata lock.
 * `sweep.sh` needs Bash; there is no native PowerShell version (use Git Bash or WSL).
 
@@ -305,7 +337,7 @@ Indicative observations from the 10.11 validation run only (to be confirmed or r
 | `run_alter.py` skeleton, change-type | Mirqe | `run_alter.py`, `experiments.py`, `change-type` | Widening/changing types (DATE → DATETIME tested) |
 | README, sweep script, add-fk | Yasmine | `README.md`, `sweep.sh`, `tests/add-fk/`, `add-fk*` | Does MariaDB support INPLACE/NOCOPY for a foreign key, or force COPY? |
 
-The research items are answered *indicatively* in [15. Findings](#15-findings) and definitively only once the 11.4 benchmark has run.
+The research items have 11.4 DDL timing and algorithm-compatibility evidence in [14. Results](#14-results). Concurrent-write behavior still requires the original 11.4 workload traces.
 
 ## 19. Project Structure
 
@@ -354,8 +386,7 @@ reset before every run, a concurrent write workload, a single runner for all sch
 and an analysis that separates baseline, ALTER window and recovery. The validation run shows that the method
 distinguishes refused, blocking and non-blocking outcomes, and already points to a clear contrast between
 table-copy ALTERs, which held writes for their whole duration, and in-place/no-copy/instant ALTERs, which did not.
-Those observations come from MariaDB 10.11 with small samples; the academic conclusion on MariaDB 11.4
-still requires running `./sweep.sh --rows 1000000 --repeats 3` on the pinned Docker image.
+The 10.11 observations remain historical. The 11.4.13 repeated 100k-row results establish DDL timing and algorithm compatibility, but not concurrent-write behavior without the original workload traces. A larger run may help, if resources permit.
 
 ### Leyla: workload tests and sweep checks
 

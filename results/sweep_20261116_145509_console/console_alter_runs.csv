@@ -1,0 +1,127 @@
+change,algorithm,repeat,status,duration_s,errno,error_message,classification
+change-type,default,1,success,0.562,,,success
+change-type,default,2,success,0.57,,,success
+change-type,default,3,success,0.546,,,success
+change-type,blocking,1,success,0.616,,,success
+change-type,blocking,2,success,0.609,,,success
+change-type,blocking,3,success,0.61,,,success
+change-type,copy,1,success,0.626,,,success
+change-type,copy,2,success,0.407,,,success
+change-type,copy,3,success,0.558,,,success
+change-type,copy-shared,1,success,0.639,,,success
+change-type,copy-shared,2,success,0.484,,,success
+change-type,copy-shared,3,success,0.413,,,success
+change-type,inplace,1,failure,0.033,1846,"(1846, 'ALGORITHM=INPLACE is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')",expected_rejection
+change-type,inplace,2,failure,0.025,1846,"(1846, 'ALGORITHM=INPLACE is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')",expected_rejection
+change-type,inplace,3,failure,0.034,1846,"(1846, 'ALGORITHM=INPLACE is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')",expected_rejection
+change-type,nocopy,1,failure,0.029,1846,"(1846, 'ALGORITHM=NOCOPY is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')",expected_rejection
+change-type,nocopy,2,failure,0.031,1846,"(1846, 'ALGORITHM=NOCOPY is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')",expected_rejection
+change-type,nocopy,3,failure,0.018,1846,"(1846, 'ALGORITHM=NOCOPY is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')",expected_rejection
+change-type,instant,1,failure,0.025,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')",expected_rejection
+change-type,instant,2,failure,0.05,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')",expected_rejection
+change-type,instant,3,failure,0.03,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')",expected_rejection
+add-index,default,1,success,0.134,,,success
+add-index,default,2,success,0.083,,,success
+add-index,default,3,success,0.122,,,success
+add-index,blocking,1,success,0.511,,,success
+add-index,blocking,2,success,0.583,,,success
+add-index,blocking,3,success,0.457,,,success
+add-index,copy,1,success,0.425,,,success
+add-index,copy,2,success,0.506,,,success
+add-index,copy,3,success,0.456,,,success
+add-index,copy-shared,1,success,0.468,,,success
+add-index,copy-shared,2,success,0.587,,,success
+add-index,copy-shared,3,success,0.708,,,success
+add-index,inplace,1,success,0.121,,,success
+add-index,inplace,2,success,0.122,,,success
+add-index,inplace,3,success,0.123,,,success
+add-index,nocopy,1,success,0.157,,,success
+add-index,nocopy,2,success,0.106,,,success
+add-index,nocopy,3,success,0.121,,,success
+add-index,instant,1,failure,0.031,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY')",expected_rejection
+add-index,instant,2,failure,0.029,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY')",expected_rejection
+add-index,instant,3,failure,0.029,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY')",expected_rejection
+widen-column-60,default,1,success,0.026,,,success
+widen-column-60,default,2,success,0.025,,,success
+widen-column-60,default,3,success,0.024,,,success
+widen-column-60,blocking,1,success,0.385,,,success
+widen-column-60,blocking,2,success,0.607,,,success
+widen-column-60,blocking,3,success,0.374,,,success
+widen-column-60,copy,1,success,0.511,,,success
+widen-column-60,copy,2,success,0.394,,,success
+widen-column-60,copy,3,success,0.389,,,success
+widen-column-60,copy-shared,1,success,0.577,,,success
+widen-column-60,copy-shared,2,success,0.416,,,success
+widen-column-60,copy-shared,3,success,0.403,,,success
+widen-column-60,inplace,1,success,0.024,,,success
+widen-column-60,inplace,2,success,0.036,,,success
+widen-column-60,inplace,3,success,0.035,,,success
+widen-column-60,nocopy,1,success,0.03,,,success
+widen-column-60,nocopy,2,success,0.033,,,success
+widen-column-60,nocopy,3,success,0.028,,,success
+widen-column-60,instant,1,success,0.027,,,success
+widen-column-60,instant,2,success,0.022,,,success
+widen-column-60,instant,3,success,0.034,,,success
+widen-column-100,default,1,success,0.024,,,success
+widen-column-100,default,2,success,0.036,,,success
+widen-column-100,default,3,success,0.022,,,success
+widen-column-100,blocking,1,success,0.436,,,success
+widen-column-100,blocking,2,success,0.457,,,success
+widen-column-100,blocking,3,success,0.417,,,success
+widen-column-100,copy,1,success,0.447,,,success
+widen-column-100,copy,2,success,0.392,,,success
+widen-column-100,copy,3,success,0.396,,,success
+widen-column-100,copy-shared,1,success,0.397,,,success
+widen-column-100,copy-shared,2,success,0.404,,,success
+widen-column-100,copy-shared,3,success,0.382,,,success
+widen-column-100,inplace,1,success,0.025,,,success
+widen-column-100,inplace,2,success,0.033,,,success
+widen-column-100,inplace,3,success,0.022,,,success
+widen-column-100,nocopy,1,success,0.025,,,success
+widen-column-100,nocopy,2,success,0.023,,,success
+widen-column-100,nocopy,3,success,0.06,,,success
+widen-column-100,instant,1,success,0.032,,,success
+widen-column-100,instant,2,success,0.024,,,success
+widen-column-100,instant,3,success,0.024,,,success
+add-fk,default,1,success,0.687,,,success
+add-fk,default,2,success,0.75,,,success
+add-fk,default,3,success,0.697,,,success
+add-fk,blocking,1,success,0.806,,,success
+add-fk,blocking,2,success,0.866,,,success
+add-fk,blocking,3,success,0.649,,,success
+add-fk,copy,1,success,0.846,,,success
+add-fk,copy,2,success,0.733,,,success
+add-fk,copy,3,success,0.686,,,success
+add-fk,copy-shared,1,success,0.792,,,success
+add-fk,copy-shared,2,success,0.741,,,success
+add-fk,copy-shared,3,success,0.716,,,success
+add-fk,inplace,1,failure,0.024,1846,"(1846, 'ALGORITHM=INPLACE is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')",expected_rejection
+add-fk,inplace,2,failure,0.029,1846,"(1846, 'ALGORITHM=INPLACE is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')",expected_rejection
+add-fk,inplace,3,failure,0.029,1846,"(1846, 'ALGORITHM=INPLACE is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')",expected_rejection
+add-fk,nocopy,1,failure,0.034,1846,"(1846, 'ALGORITHM=NOCOPY is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')",expected_rejection
+add-fk,nocopy,2,failure,0.025,1846,"(1846, 'ALGORITHM=NOCOPY is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')",expected_rejection
+add-fk,nocopy,3,failure,0.037,1846,"(1846, 'ALGORITHM=NOCOPY is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')",expected_rejection
+add-fk,instant,1,failure,0.019,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')",expected_rejection
+add-fk,instant,2,failure,0.025,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')",expected_rejection
+add-fk,instant,3,failure,0.02,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')",expected_rejection
+add-fk-fkchecks-off,default,1,success,0.088,,,success
+add-fk-fkchecks-off,default,2,success,0.091,,,success
+add-fk-fkchecks-off,default,3,success,0.105,,,success
+add-fk-fkchecks-off,blocking,1,success,0.471,,,success
+add-fk-fkchecks-off,blocking,2,success,0.411,,,success
+add-fk-fkchecks-off,blocking,3,success,0.418,,,success
+add-fk-fkchecks-off,copy,1,success,0.416,,,success
+add-fk-fkchecks-off,copy,2,success,0.628,,,success
+add-fk-fkchecks-off,copy,3,success,0.626,,,success
+add-fk-fkchecks-off,copy-shared,1,success,0.514,,,success
+add-fk-fkchecks-off,copy-shared,2,success,0.54,,,success
+add-fk-fkchecks-off,copy-shared,3,success,0.421,,,success
+add-fk-fkchecks-off,inplace,1,success,0.109,,,success
+add-fk-fkchecks-off,inplace,2,success,0.09,,,success
+add-fk-fkchecks-off,inplace,3,success,0.087,,,success
+add-fk-fkchecks-off,nocopy,1,success,0.137,,,success
+add-fk-fkchecks-off,nocopy,2,success,0.134,,,success
+add-fk-fkchecks-off,nocopy,3,success,0.125,,,success
+add-fk-fkchecks-off,instant,1,failure,0.028,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY')",expected_rejection
+add-fk-fkchecks-off,instant,2,failure,0.023,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY')",expected_rejection
+add-fk-fkchecks-off,instant,3,failure,0.019,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY')",expected_rejection

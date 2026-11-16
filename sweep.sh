@@ -12,9 +12,16 @@
 set -uo pipefail
 cd "$(dirname "$0")"
 
-PY="${PYTHON:-}"
-if [ -z "$PY" ]; then
-  if command -v python3 >/dev/null 2>&1; then PY=python3; else PY=python; fi
+# Prefer the active virtual environment (especially on Windows Git Bash, where
+# python3 may resolve to a different installation). Explicit PYTHON overrides it.
+if [ -n "${PYTHON:-}" ]; then
+  PY="$PYTHON"
+elif [ -n "${VIRTUAL_ENV:-}" ] && [ -x "$VIRTUAL_ENV/Scripts/python.exe" ]; then
+  PY="$VIRTUAL_ENV/Scripts/python.exe"
+elif [ -n "${VIRTUAL_ENV:-}" ] && [ -x "$VIRTUAL_ENV/bin/python" ]; then
+  PY="$VIRTUAL_ENV/bin/python"
+else
+  PY=python
 fi
 
 ROWS=100000
@@ -65,8 +72,8 @@ done
 OUT_DIR="$OUT_ROOT/$SWEEP_ID"
 mkdir -p "$OUT_DIR"
 
-"$PY" -c "from common import connect; connect().close()" 2>/dev/null || {
-  echo "Cannot connect to MariaDB. Start it with:  docker compose up -d   (then wait until healthy)" >&2
+"$PY" -c "from common import connect; connect().close()" || {
+  echo "Python database connection failed (see traceback above). Check Python environment, .env, and docker compose ps." >&2
   exit 1
 }
 
@@ -114,7 +121,7 @@ for change in $CHANGES; do
         --tag "$SWEEP_ID" --workload "$OUT_DIR/workload_${tag}.csv" --dataset-rows "$ROWS" \
         --poll-out "$OUT_DIR/processlist_${tag}.csv" | tail -1
       rc=${PIPESTATUS[0]}
-      [ "$rc" -ne 0 ] && echo "  run_alter.py infrastructure error (rc=$rc)" >&2
+      if [ "$rc" -ne 0 ]; then echo "  run_alter.py infrastructure error (rc=$rc)" >&2; exit "$rc"; fi
       sleep "$AFTER_SECS"
 
       # 4. stop workload cleanly

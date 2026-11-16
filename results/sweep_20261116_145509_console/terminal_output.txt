@@ -1,0 +1,336 @@
+$ PYTHON=python bash sweep.sh --rows 100000 --repeats 3
+Sweep sweep_20261116_145509: 126 runs, 100000 rows -> results/sweep_20261116_145509
+[1/126] change-type_default_r1
+SUCCESS in 0.562s
+[2/126] change-type_default_r2
+SUCCESS in 0.570s
+[3/126] change-type_default_r3
+SUCCESS in 0.546s
+[4/126] change-type_blocking_r1
+SUCCESS in 0.616s
+[5/126] change-type_blocking_r2
+SUCCESS in 0.609s
+[6/126] change-type_blocking_r3
+SUCCESS in 0.610s
+[7/126] change-type_copy_r1
+SUCCESS in 0.626s
+[8/126] change-type_copy_r2
+SUCCESS in 0.407s
+[9/126] change-type_copy_r3
+SUCCESS in 0.558s
+[10/126] change-type_copy-shared_r1
+SUCCESS in 0.639s
+[11/126] change-type_copy-shared_r2
+SUCCESS in 0.484s
+[12/126] change-type_copy-shared_r3
+SUCCESS in 0.413s
+        [13/126] change-type_inplace_r1
+FAILURE in 0.033s - error 1846: (1846, 'ALGORITHM=INPLACE is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')
+[14/126] change-type_inplace_r2
+FAILURE in 0.025s - error 1846: (1846, 'ALGORITHM=INPLACE is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')
+[15/126] change-type_inplace_r3
+FAILURE in 0.034s - error 1846: (1846, 'ALGORITHM=INPLACE is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')
+[16/126] change-type_nocopy_r1
+FAILURE in 0.029s - error 1846: (1846, 'ALGORITHM=NOCOPY is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')
+[17/126] change-type_nocopy_r2
+FAILURE in 0.031s - error 1846: (1846, 'ALGORITHM=NOCOPY is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')
+[18/126] change-type_nocopy_r3
+FAILURE in 0.018s - error 1846: (1846, 'ALGORITHM=NOCOPY is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')
+[19/126] change-type_instant_r1
+FAILURE in 0.025s - error 1846: (1846, 'ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')
+[20/126] change-type_instant_r2
+FAILURE in 0.050s - error 1846: (1846, 'ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')
+[21/126] change-type_instant_r3
+FAILURE in 0.030s - error 1846: (1846, 'ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')
+[22/126] add-index_default_r1
+SUCCESS in 0.134s
+        [23/126] add-index_default_r2
+SUCCESS in 0.083s
+[24/126] add-index_default_r3
+SUCCESS in 0.122s
+[25/126] add-index_blocking_r1
+SUCCESS in 0.511s
+[26/126] add-index_blocking_r2
+SUCCESS in 0.583s
+[27/126] add-index_blocking_r3
+SUCCESS in 0.457s
+[28/126] add-index_copy_r1
+SUCCESS in 0.425s
+[29/126] add-index_copy_r2
+SUCCESS in 0.506s
+[30/126] add-index_copy_r3
+SUCCESS in 0.456s
+        [31/126] add-index_copy-shared_r1
+SUCCESS in 0.468s
+[32/126] add-index_copy-shared_r2
+SUCCESS in 0.587s
+[33/126] add-index_copy-shared_r3
+SUCCESS in 0.708s
+[34/126] add-index_inplace_r1
+SUCCESS in 0.121s
+[35/126] add-index_inplace_r2
+SUCCESS in 0.122s
+[36/126] add-index_inplace_r3
+SUCCESS in 0.123s
+[37/126] add-index_nocopy_r1
+SUCCESS in 0.157s
+[38/126] add-index_nocopy_r2
+SUCCESS in 0.106s
+[39/126] add-index_nocopy_r3
+SUCCESS in 0.121s
+[40/126] add-index_instant_r1
+FAILURE in 0.031s - error 1846: (1846, 'ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY')
+[41/126] add-index_instant_r2
+FAILURE in 0.029s - error 1846: (1846, 'ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY')
+[42/126] add-index_instant_r3
+FAILURE in 0.029s - error 1846: (1846, 'ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY')
+[43/126] widen-column-60_default_r1
+SUCCESS in 0.026s
+[44/126] widen-column-60_default_r2
+SUCCESS in 0.025s
+[45/126] widen-column-60_default_r3
+SUCCESS in 0.024s
+[46/126] widen-column-60_blocking_r1
+SUCCESS in 0.385s
+[47/126] widen-column-60_blocking_r2
+SUCCESS in 0.607s
+[48/126] widen-column-60_blocking_r3
+SUCCESS in 0.374s
+[49/126] widen-column-60_copy_r1
+SUCCESS in 0.511s
+        [50/126] widen-column-60_copy_r2
+SUCCESS in 0.394s
+[51/126] widen-column-60_copy_r3
+SUCCESS in 0.389s
+[52/126] widen-column-60_copy-shared_r1
+SUCCESS in 0.577s
+[53/126] widen-column-60_copy-shared_r2
+SUCCESS in 0.416s
+[54/126] widen-column-60_copy-shared_r3
+SUCCESS in 0.403s
+[55/126] widen-column-60_inplace_r1
+SUCCESS in 0.024s
+[56/126] widen-column-60_inplace_r2
+SUCCESS in 0.036s
+[57/126] widen-column-60_inplace_r3
+SUCCESS in 0.035s
+[58/126] widen-column-60_nocopy_r1
+SUCCESS in 0.030s
+[59/126] widen-column-60_nocopy_r2
+SUCCESS in 0.033s
+[60/126] widen-column-60_nocopy_r3
+SUCCESS in 0.028s
+        [61/126] widen-column-60_instant_r1
+SUCCESS in 0.027s
+[62/126] widen-column-60_instant_r2
+SUCCESS in 0.022s
+[63/126] widen-column-60_instant_r3
+SUCCESS in 0.034s
+[64/126] widen-column-100_default_r1
+SUCCESS in 0.024s
+[65/126] widen-column-100_default_r2
+SUCCESS in 0.036s
+[66/126] widen-column-100_default_r3
+SUCCESS in 0.022s
+[67/126] widen-column-100_blocking_r1
+SUCCESS in 0.436s
+[68/126] widen-column-100_blocking_r2
+SUCCESS in 0.457s
+[69/126] widen-column-100_blocking_r3
+SUCCESS in 0.417s
+[70/126] widen-column-100_copy_r1
+SUCCESS in 0.447s
+[71/126] widen-column-100_copy_r2
+SUCCESS in 0.392s
+[72/126] widen-column-100_copy_r3
+SUCCESS in 0.396s
+[73/126] widen-column-100_copy-shared_r1
+SUCCESS in 0.397s
+[74/126] widen-column-100_copy-shared_r2
+SUCCESS in 0.404s
+[75/126] widen-column-100_copy-shared_r3
+SUCCESS in 0.382s
+[76/126] widen-column-100_inplace_r1
+SUCCESS in 0.025s
+[77/126] widen-column-100_inplace_r2
+SUCCESS in 0.033s
+[78/126] widen-column-100_inplace_r3
+SUCCESS in 0.022s
+[79/126] widen-column-100_nocopy_r1
+SUCCESS in 0.025s
+[80/126] widen-column-100_nocopy_r2
+SUCCESS in 0.023s
+[81/126] widen-column-100_nocopy_r3
+SUCCESS in 0.060s
+[82/126] widen-column-100_instant_r1
+SUCCESS in 0.032s
+[83/126] widen-column-100_instant_r2
+SUCCESS in 0.024s
+[84/126] widen-column-100_instant_r3
+SUCCESS in 0.024s
+[85/126] add-fk_default_r1
+SUCCESS in 0.687s
+                [86/126] add-fk_default_r2
+SUCCESS in 0.750s
+[87/126] add-fk_default_r3
+SUCCESS in 0.697s
+[88/126] add-fk_blocking_r1
+SUCCESS in 0.806s
+        [89/126] add-fk_blocking_r2
+SUCCESS in 0.866s
+[90/126] add-fk_blocking_r3
+SUCCESS in 0.649s
+[91/126] add-fk_copy_r1
+SUCCESS in 0.846s
+[92/126] add-fk_copy_r2
+SUCCESS in 0.733s
+[93/126] add-fk_copy_r3
+SUCCESS in 0.686s
+[94/126] add-fk_copy-shared_r1
+SUCCESS in 0.792s
+[95/126] add-fk_copy-shared_r2
+SUCCESS in 0.741s
+[96/126] add-fk_copy-shared_r3
+SUCCESS in 0.716s
+[97/126] add-fk_inplace_r1
+FAILURE in 0.024s - error 1846: (1846, 'ALGORITHM=INPLACE is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')
+[98/126] add-fk_inplace_r2
+FAILURE in 0.029s - error 1846: (1846, 'ALGORITHM=INPLACE is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')
+        [99/126] add-fk_inplace_r3
+FAILURE in 0.029s - error 1846: (1846, 'ALGORITHM=INPLACE is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')
+[100/126] add-fk_nocopy_r1
+FAILURE in 0.034s - error 1846: (1846, 'ALGORITHM=NOCOPY is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')
+[101/126] add-fk_nocopy_r2
+FAILURE in 0.025s - error 1846: (1846, 'ALGORITHM=NOCOPY is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')
+[102/126] add-fk_nocopy_r3
+FAILURE in 0.037s - error 1846: (1846, 'ALGORITHM=NOCOPY is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')
+[103/126] add-fk_instant_r1
+FAILURE in 0.019s - error 1846: (1846, 'ALGORITHM=INSTANT is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')
+[104/126] add-fk_instant_r2
+FAILURE in 0.025s - error 1846: (1846, 'ALGORITHM=INSTANT is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')
+[105/126] add-fk_instant_r3
+FAILURE in 0.020s - error 1846: (1846, 'ALGORITHM=INSTANT is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')
+[106/126] add-fk-fkchecks-off_default_r1
+SUCCESS in 0.088s
+[107/126] add-fk-fkchecks-off_default_r2
+SUCCESS in 0.091s
+[108/126] add-fk-fkchecks-off_default_r3
+SUCCESS in 0.105s
+[109/126] add-fk-fkchecks-off_blocking_r1
+SUCCESS in 0.471s
+[110/126] add-fk-fkchecks-off_blocking_r2
+SUCCESS in 0.411s
+[111/126] add-fk-fkchecks-off_blocking_r3
+SUCCESS in 0.418s
+[112/126] add-fk-fkchecks-off_copy_r1
+SUCCESS in 0.416s
+[113/126] add-fk-fkchecks-off_copy_r2
+SUCCESS in 0.628s
+[114/126] add-fk-fkchecks-off_copy_r3
+SUCCESS in 0.626s
+[115/126] add-fk-fkchecks-off_copy-shared_r1
+SUCCESS in 0.514s
+[116/126] add-fk-fkchecks-off_copy-shared_r2
+SUCCESS in 0.540s
+[117/126] add-fk-fkchecks-off_copy-shared_r3
+SUCCESS in 0.421s
+[118/126] add-fk-fkchecks-off_inplace_r1
+SUCCESS in 0.109s
+[119/126] add-fk-fkchecks-off_inplace_r2
+SUCCESS in 0.090s
+[120/126] add-fk-fkchecks-off_inplace_r3
+SUCCESS in 0.087s
+[121/126] add-fk-fkchecks-off_nocopy_r1
+SUCCESS in 0.137s
+[122/126] add-fk-fkchecks-off_nocopy_r2
+SUCCESS in 0.134s
+[123/126] add-fk-fkchecks-off_nocopy_r3
+SUCCESS in 0.125s
+[124/126] add-fk-fkchecks-off_instant_r1
+FAILURE in 0.028s - error 1846: (1846, 'ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY')
+[125/126] add-fk-fkchecks-off_instant_r2
+FAILURE in 0.023s - error 1846: (1846, 'ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY')
+        [126/126] add-fk-fkchecks-off_instant_r3
+FAILURE in 0.019s - error 1846: (1846, 'ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY')
+Analysing...
+analysis written to results\sweep_20261116_145509\analysis
+             change   algorithm  runs  successes  failures   mean_s  median_s  min_s  max_s
+                                           first_error
+        change-type     default     3          3         0 0.559333     0.562  0.546  0.570
+
+        change-type    blocking     3          3         0 0.611667     0.610  0.609  0.616
+
+        change-type        copy     3          3         0 0.530333     0.558  0.407  0.626
+
+        change-type copy-shared     3          3         0 0.512000     0.484  0.413  0.639
+
+        change-type     inplace     3          0         3      NaN       NaN    NaN    NaN                        (1846, 'ALGORITHM=INPLACE is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')
+        change-type      nocopy     3          0         3      NaN       NaN    NaN    NaN                         (1846, 'ALGORITHM=NOCOPY is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')
+        change-type     instant     3          0         3      NaN       NaN    NaN    NaN                        (1846, 'ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')
+          add-index     default     3          3         0 0.113000     0.122  0.083  0.134
+
+          add-index    blocking     3          3         0 0.517000     0.511  0.457  0.583
+
+          add-index        copy     3          3         0 0.462333     0.456  0.425  0.506
+
+          add-index copy-shared     3          3         0 0.587667     0.587  0.468  0.708
+
+          add-index     inplace     3          3         0 0.122000     0.122  0.121  0.123
+
+          add-index      nocopy     3          3         0 0.128000     0.121  0.106  0.157
+
+          add-index     instant     3          0         3      NaN       NaN    NaN    NaN                                      (1846, 'ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY')
+    widen-column-60     default     3          3         0 0.025000     0.025  0.024  0.026
+
+    widen-column-60    blocking     3          3         0 0.455333     0.385  0.374  0.607
+
+    widen-column-60        copy     3          3         0 0.431333     0.394  0.389  0.511
+
+    widen-column-60 copy-shared     3          3         0 0.465333     0.416  0.403  0.577
+
+    widen-column-60     inplace     3          3         0 0.031667     0.035  0.024  0.036
+
+    widen-column-60      nocopy     3          3         0 0.030333     0.030  0.028  0.033
+
+    widen-column-60     instant     3          3         0 0.027667     0.027  0.022  0.034
+
+   widen-column-100     default     3          3         0 0.027333     0.024  0.022  0.036
+
+   widen-column-100    blocking     3          3         0 0.436667     0.436  0.417  0.457
+
+   widen-column-100        copy     3          3         0 0.411667     0.396  0.392  0.447
+
+   widen-column-100 copy-shared     3          3         0 0.394333     0.397  0.382  0.404
+
+   widen-column-100     inplace     3          3         0 0.026667     0.025  0.022  0.033
+
+   widen-column-100      nocopy     3          3         0 0.036000     0.025  0.023  0.060
+
+   widen-column-100     instant     3          3         0 0.026667     0.024  0.024  0.032
+
+             add-fk     default     3          3         0 0.711333     0.697  0.687  0.750
+
+             add-fk    blocking     3          3         0 0.773667     0.806  0.649  0.866
+
+             add-fk        copy     3          3         0 0.755000     0.733  0.686  0.846
+
+             add-fk copy-shared     3          3         0 0.749667     0.741  0.716  0.792
+
+             add-fk     inplace     3          0         3      NaN       NaN    NaN    NaN (1846, 'ALGORITHM=INPLACE is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')
+             add-fk      nocopy     3          0         3      NaN       NaN    NaN    NaN  (1846, 'ALGORITHM=NOCOPY is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')
+             add-fk     instant     3          0         3      NaN       NaN    NaN    NaN (1846, 'ALGORITHM=INSTANT is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')
+add-fk-fkchecks-off     default     3          3         0 0.094667     0.091  0.088  0.105
+
+add-fk-fkchecks-off    blocking     3          3         0 0.433333     0.418  0.411  0.471
+
+add-fk-fkchecks-off        copy     3          3         0 0.556667     0.626  0.416  0.628
+
+add-fk-fkchecks-off copy-shared     3          3         0 0.491667     0.514  0.421  0.540
+
+add-fk-fkchecks-off     inplace     3          3         0 0.095333     0.090  0.087  0.109
+
+add-fk-fkchecks-off      nocopy     3          3         0 0.132000     0.134  0.125  0.137
+
+add-fk-fkchecks-off     instant     3          0         3      NaN       NaN    NaN    NaN                                      (1846, 'ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY')
+Done. Results: results/sweep_20261116_145509
+(.venv)

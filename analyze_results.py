@@ -23,6 +23,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+from outcomes import classify_outcome
+
 PHASES = ["baseline", "during", "after"]
 MIN_SAMPLE = 30   # below this many statements in a phase, p95/p99 are not meaningful
 OPS = ["INSERT", "UPDATE", "DELETE"]
@@ -43,6 +45,7 @@ def label(row):
 def alter_summary(alter):
     alter = alter.copy()
     alter["ok"] = alter["status"] == "success"
+    alter["outcome"] = alter.apply(lambda r: classify_outcome(r["change"], r["requested_algorithm"], r["status"], r.get("errno")), axis=1)
     rows = []
     for (change, algo), g in alter.groupby(["change", "requested_algorithm"], sort=False):
         ok = g[g["ok"]]["duration_seconds"]
@@ -50,6 +53,11 @@ def alter_summary(alter):
         rows.append({
             "change": change, "algorithm": algo, "runs": len(g),
             "successes": int(g["ok"].sum()), "failures": int((~g["ok"]).sum()),
+            "expected_rejections": int((g["outcome"] == "expected_rejection").sum()),
+            "unexpected_failures": int((g["outcome"] == "unexpected_failure").sum()),
+            "stddev_s": ok.std() if len(ok) > 1 else np.nan,
+            "p25_s": ok.quantile(0.25) if len(ok) else np.nan,
+            "p75_s": ok.quantile(0.75) if len(ok) else np.nan,
             "mean_s": ok.mean() if len(ok) else np.nan, "median_s": ok.median() if len(ok) else np.nan,
             "min_s": ok.min() if len(ok) else np.nan, "max_s": ok.max() if len(ok) else np.nan,
             "first_error": errs[0] if len(errs) else "",
@@ -190,6 +198,8 @@ def main():
     summary = alter_summary(alter)
     phase_df, wl_all = workload_by_phase(alter, args.sweep_dir)
     summary.to_csv(out_dir / "alter_summary.csv", index=False)
+    alter["outcome"] = alter.apply(lambda r: classify_outcome(r["change"], r["requested_algorithm"], r["status"], r.get("errno")), axis=1)
+    alter.to_csv(out_dir / "classified_alter_results.csv", index=False)
     phase_df.to_csv(out_dir / "workload_by_phase.csv", index=False)
 
     made = {
@@ -210,7 +220,10 @@ def main():
         f"# Analysis of {args.sweep_dir.name}", "",
         f"- Server: `{meta['server_version']}`", f"- Dataset rows (target table): {meta['dataset_rows']}",
         f"- ALTER runs: {len(alter)}  (success: {(alter['status'] == 'success').sum()}, failure: {(alter['status'] != 'success').sum()})", "",
-        "## ALTER duration and outcome", "", md_table(summary), "",
+        "## ALTER duration and outcome", "",
+        "`expected_rejection` means error 1846 for a deliberately incompatible request; it is not a successful ALTER. Other errors are `unexpected_failure`.", "",
+        "Single-run standard deviation is undefined; do not infer performance rankings from 1,000-row smoke tests.", "",
+        md_table(summary), "",
         "## Workload latency per phase (ms)", "",
         f"`low_sample=True` means fewer than {MIN_SAMPLE} statements in that phase: percentiles are not meaningful "
         "(typically the ALTER was too short to overlap many workload statements; use a larger dataset).", "",
