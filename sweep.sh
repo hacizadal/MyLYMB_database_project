@@ -25,7 +25,7 @@ else
 fi
 
 ROWS=100000
-CHANGES="change-type add-index widen-column-60 widen-column-100 add-fk add-fk-fkchecks-off"
+CHANGES="change-type add-index widen-column-60 widen-column-100 widen-column-rebuild add-fk add-fk-fkchecks-off"
 ALGORITHMS="default blocking copy copy-shared inplace nocopy instant"
 BASELINE_SECS=10
 AFTER_SECS=5

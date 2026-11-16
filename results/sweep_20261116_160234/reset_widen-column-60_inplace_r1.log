@@ -1,0 +1,3 @@
+  user_table: 100,000/100,000
+user_table: inserted 100,000 rows in 4.1s (24,356 rows/s)
+reset done in 4.3s (user_table=100,000, orders=0, seed=42)

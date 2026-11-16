@@ -1,0 +1,9 @@
+change,algorithm,runs,successes,failures,expected_rejections,unexpected_failures,stddev_s,p25_s,p75_s,mean_s,median_s,min_s,max_s,first_error
+add-index,copy,1,1,0,0,0,,0.518,0.518,0.518,0.518,0.518,0.518,
+add-index,inplace,1,1,0,0,0,,0.137,0.137,0.137,0.137,0.137,0.137,
+add-index,nocopy,1,1,0,0,0,,0.097,0.097,0.097,0.097,0.097,0.097,
+add-index,instant,1,0,1,1,0,,,,,,,,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY')"
+widen-column-60,copy,1,1,0,0,0,,0.641,0.641,0.641,0.641,0.641,0.641,
+widen-column-60,inplace,1,1,0,0,0,,0.043,0.043,0.043,0.043,0.043,0.043,
+widen-column-60,nocopy,1,1,0,0,0,,0.029,0.029,0.029,0.029,0.029,0.029,
+widen-column-60,instant,1,1,0,0,0,,0.044,0.044,0.044,0.044,0.044,0.044,

@@ -1,0 +1,15 @@
+sweep_id=sweep_20261116_160234
+started_utc=2026-11-16T16:02:34Z
+rows=100000
+changes=add-index widen-column-60
+algorithms=copy inplace nocopy instant
+repeats=1
+baseline_secs=10
+after_secs=5
+threads=1
+interval=0.05
+lock_timeout=10
+python=Python 3.13.9
+server_version=11.4.13-MariaDB-ubu2404
+buffer_pool_bytes=1073741824
+finished_utc=2026-11-16T16:05:16Z

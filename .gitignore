@@ -9,6 +9,9 @@ results/*
 !results/.gitkeep
 !results/historical/
 !results/validation_sandbox_mariadb10.11/
+!results/sandbox_mariadb11.4_1M/
+!results/sweep_11.4_*/
+!results/primary_11_4/
 results/**/.ready_*
 results/**/reset_*.log
 results/**/workload_*.log
@@ -19,3 +22,7 @@ results/**/workload_*.log
 # Curated 11.4 terminal evidence (not raw workload traces)
 !results/sweep_20261116_145509_console/
 !results/sweep_20261116_145509_console/**
+
+# Focused 11.4.13 100k-row concurrent-write evidence
+!results/sweep_20261116_160234/
+!results/sweep_20261116_160234/**

@@ -1,0 +1,1 @@
+workload started: profile=user_table threads=1 interval=0.05s -> results/sweep_20261116_160234/workload_add-index_nocopy_r1.csv

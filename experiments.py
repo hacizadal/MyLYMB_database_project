@@ -44,6 +44,12 @@ CHANGES = {
         alter="MODIFY COLUMN email_address VARCHAR(100) NOT NULL",
         description="VARCHAR(30) -> VARCHAR(100). utf8mb4: 120 -> 400 bytes, crosses 255 "
                     "(length prefix grows from 1 to 2 bytes)."),
+    "widen-column-rebuild": Change(
+        family="widen-column", table="user_table",
+        alter="MODIFY COLUMN first_name VARCHAR(100) NOT NULL",
+        description="VARCHAR(50) -> VARCHAR(100). utf8mb4: 200 -> 400 bytes. The old maximum is "
+                    "between 128 and 255 bytes, so the length prefix of long values would change: "
+                    "INSTANT is not allowed and the table must be rebuilt."),
     "add-fk": Change(
         family="add-fk", table="orders",
         alter="ADD CONSTRAINT fk_orders_user FOREIGN KEY (user_id) REFERENCES user_table (id)",
@@ -65,7 +71,8 @@ ALGORITHMS = {
     "blocking": ("ALGORITHM=COPY, LOCK=EXCLUSIVE",
                  "Explicit offline baseline: table copy, no reads or writes allowed."),
     "copy":     ("ALGORITHM=COPY, LOCK=NONE",
-                 "Request online table copy; supported since MariaDB 11.2, verify on the target server."),
+                 "Table copy while writes continue, via the online change buffer (MariaDB >= 11.2; "
+                 "refused with error 1846 on 10.11)."),
     "copy-shared": ("ALGORITHM=COPY, LOCK=SHARED",
                     "Table copy allowing concurrent reads only; writes wait."),
     "inplace":  ("ALGORITHM=INPLACE, LOCK=NONE", "In-place InnoDB DDL, concurrent DML allowed."),
