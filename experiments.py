@@ -65,7 +65,7 @@ ALGORITHMS = {
     "blocking": ("ALGORITHM=COPY, LOCK=EXCLUSIVE",
                  "Explicit offline baseline: table copy, no reads or writes allowed."),
     "copy":     ("ALGORITHM=COPY, LOCK=NONE",
-                 "Ask for a table copy while staying online (MariaDB is expected to refuse: error 1846)."),
+                 "Request online table copy; supported since MariaDB 11.2, verify on the target server."),
     "copy-shared": ("ALGORITHM=COPY, LOCK=SHARED",
                     "Table copy allowing concurrent reads only; writes wait."),
     "inplace":  ("ALGORITHM=INPLACE, LOCK=NONE", "In-place InnoDB DDL, concurrent DML allowed."),

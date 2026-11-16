@@ -27,7 +27,7 @@ verification on 11.4.**
 |---|---|---|
 | default | none | Server picks algorithm and lock. Reference for "what a developer gets by default". |
 | blocking | `ALGORITHM=COPY, LOCK=EXCLUSIVE` | Explicit offline baseline. |
-| copy | `ALGORITHM=COPY, LOCK=NONE` | Asks for a table copy without locking. MariaDB is expected to refuse it (see below). |
+| copy | `ALGORITHM=COPY, LOCK=NONE` | Online table copy available since MariaDB 11.2; test it on 11.4. |
 | copy-shared | `ALGORITHM=COPY, LOCK=SHARED` | Table copy; concurrent reads allowed, writes wait. |
 | inplace | `ALGORITHM=INPLACE, LOCK=NONE` | Fails if the operation cannot be done in place without locking. |
 | nocopy | `ALGORITHM=NOCOPY, LOCK=NONE` | Fails if the table would have to be rebuilt. |

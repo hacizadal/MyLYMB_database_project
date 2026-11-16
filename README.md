@@ -1,3 +1,5 @@
+A project for area 8, "Online schema change, without external tools" for the [MariaDB student database projects, 2026-09](https://mariadb.org/bachelor_hackathon_2026-09/).
+
 # MyLYMB Database Project
 
 **Online Schema Change Without External Tools: MariaDB 11.4**
@@ -8,7 +10,7 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Status](https://img.shields.io/badge/11.4%20benchmark-pending-orange)
 
-University project, *Area 8 Tier C: "Online schema change, without external tools"* (MariaDB student database projects, 2026-09).
+University project, *Area 8 Tier B: "Online schema change, without external tools"* (MariaDB student database projects, 2026-09).
 
 > **Status.** The tooling is complete and was validated end to end, but on a **MariaDB 10.11** server, not
 > on 11.4 (Docker was not available where the tooling was finalized). The 11.4 benchmark itself is
@@ -103,7 +105,7 @@ Each change is requested with every algorithm below (`python run_alter.py --list
 |---|---|---|
 | `default` | *(none)* | The server chooses algorithm and lock level (what a developer gets by default). |
 | `blocking` | `ALGORITHM=COPY, LOCK=EXCLUSIVE` | Explicit offline baseline: table copy, no concurrent access. |
-| `copy` | `ALGORITHM=COPY, LOCK=NONE` | Table copy *while online*. MariaDB is expected to refuse it. |
+| `copy` | `ALGORITHM=COPY, LOCK=NONE` | Online table copy supported starting in MariaDB 11.2; verify behavior on 11.4. |
 | `copy-shared` | `ALGORITHM=COPY, LOCK=SHARED` | Table copy; reads allowed, writes wait. |
 | `inplace` | `ALGORITHM=INPLACE, LOCK=NONE` | In-place InnoDB change, concurrent DML allowed. |
 | `nocopy` | `ALGORITHM=NOCOPY, LOCK=NONE` | Only if the table is not rebuilt, otherwise an error. |
