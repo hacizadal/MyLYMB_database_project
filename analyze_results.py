@@ -25,6 +25,7 @@ import pandas as pd
 
 from outcomes import classify_outcome
 
+
 PHASES = ["baseline", "during", "after"]
 MIN_SAMPLE = 30   # below this many statements in a phase, p95/p99 are not meaningful
 OPS = ["INSERT", "UPDATE", "DELETE"]
@@ -45,7 +46,8 @@ def label(row):
 def alter_summary(alter):
     alter = alter.copy()
     alter["ok"] = alter["status"] == "success"
-    alter["outcome"] = alter.apply(lambda r: classify_outcome(r["change"], r["requested_algorithm"], r["status"], r.get("errno")), axis=1)
+    alter["outcome"] = alter.apply(lambda r: classify_outcome(
+        r["change"], r["requested_algorithm"], r["status"], r.get("errno")), axis=1)
     rows = []
     for (change, algo), g in alter.groupby(["change", "requested_algorithm"], sort=False):
         ok = g[g["ok"]]["duration_seconds"]
@@ -68,7 +70,8 @@ def alter_summary(alter):
 def classify(wl, start, end):
     t0 = pd.to_datetime(wl["timestamp_utc"], utc=True, format="ISO8601")
     t1 = t0 + pd.to_timedelta(wl["latency_ms"], unit="ms")
-    phase = np.where(t1 <= start, "baseline", np.where(t0 >= end, "after", "during"))
+    phase = np.where(t1 <= start, "baseline",
+                     np.where(t0 >= end, "after", "during"))
     return pd.Series(phase, index=wl.index)
 
 
@@ -79,7 +82,8 @@ def pct(series, q):
 def workload_by_phase(alter, sweep_dir):
     rows, frames = [], []
     for _, run in alter.iterrows():
-        path = locate(str(run.get("workload_csv", "")), sweep_dir) if isinstance(run.get("workload_csv"), str) and run["workload_csv"] else None
+        path = locate(str(run.get("workload_csv", "")), sweep_dir) if isinstance(
+            run.get("workload_csv"), str) and run["workload_csv"] else None
         if path is None:
             continue
         wl = pd.read_csv(path)
@@ -114,8 +118,11 @@ def fig_alter_duration(summary, out):
     ax.bar(range(len(ok)), ok["median_s"])
     ax.set_xticks(range(len(ok)), labels, rotation=90, fontsize=7)
     ax.set_ylabel("ALTER duration, median of successful runs (s)")
-    ax.set_title("ALTER duration by change and requested algorithm (refused combinations omitted)")
-    fig.tight_layout(); fig.savefig(out, dpi=140); plt.close(fig)
+    ax.set_title(
+        "ALTER duration by change and requested algorithm (refused combinations omitted)")
+    fig.tight_layout()
+    fig.savefig(out, dpi=140)
+    plt.close(fig)
     return True
 
 
@@ -123,19 +130,39 @@ def fig_p95(phase_df, out):
     if phase_df.empty:
         return False
     # Only runs whose ALTER succeeded: for a refused ALTER the "during" window is a few ms and meaningless.
-    g = phase_df[phase_df["phase"].isin(["baseline", "during"]) & (phase_df["alter_status"] == "success")]
-    agg = (g.groupby(["change", "algorithm", "run_id", "phase"], sort=False)["p95_ms"].max().unstack("phase").dropna(subset=["during"]).reset_index())
+    g = phase_df[phase_df["phase"].isin(["baseline", "during"]) & (
+        phase_df["alter_status"] == "success")]
+    if g.empty:
+        return False
+
+    agg = (
+        g.groupby(
+            ["change", "algorithm", "run_id", "phase"],
+            sort=False
+        )["p95_ms"]
+        .max()
+        .unstack("phase")
+        .reindex(columns=["baseline", "during"])
+        .dropna(subset=["baseline", "during"])
+        .reset_index()
+    )
+
     if agg.empty:
         return False
-    agg["baseline"] = agg["baseline"].fillna(0)
     x = np.arange(len(agg))
     fig, ax = plt.subplots(figsize=(max(7, 0.7 * len(agg)), 5))
     ax.bar(x - 0.2, agg["baseline"], 0.4, label="baseline")
     ax.bar(x + 0.2, agg["during"], 0.4, label="during ALTER")
-    ax.set_xticks(x, [f"{r.change}\n{r.algorithm}" for r in agg.itertuples()], rotation=90, fontsize=7)
-    ax.set_yscale("log"); ax.set_ylabel("worst per-operation p95 latency (ms, log)")
-    ax.set_title("Workload p95 latency: baseline vs during ALTER (successful ALTERs only)"); ax.legend()
-    fig.tight_layout(); fig.savefig(out, dpi=140); plt.close(fig)
+    ax.set_xticks(
+        x, [f"{r.change}\n{r.algorithm}" for r in agg.itertuples()], rotation=90, fontsize=7)
+    ax.set_yscale("log")
+    ax.set_ylabel("worst per-operation p95 latency (ms, log)")
+    ax.set_title(
+        "Workload p95 latency: baseline vs during ALTER (successful ALTERs only)")
+    ax.legend()
+    fig.tight_layout()
+    fig.savefig(out, dpi=140)
+    plt.close(fig)
     return True
 
 
@@ -143,29 +170,40 @@ def fig_distribution(wl_all, out):
     if wl_all.empty:
         return False
     ok_runs = wl_all[wl_all["alter_status"] == "success"]
-    data = [ok_runs[(ok_runs["phase"] == ph) & (ok_runs["status"] == "success")]["latency_ms"].values for ph in PHASES]
+    data = [ok_runs[(ok_runs["phase"] == ph) & (
+        ok_runs["status"] == "success")]["latency_ms"].values for ph in PHASES]
     if not any(len(d) for d in data):
         return False
     fig, ax = plt.subplots(figsize=(6, 5))
-    ax.boxplot([d if len(d) else [np.nan] for d in data], tick_labels=PHASES, showfliers=True)
-    ax.set_yscale("log"); ax.set_ylabel("latency (ms, log) - successful statements")
-    ax.set_title("Workload latency by phase (runs with successful ALTER, pooled)")
-    fig.tight_layout(); fig.savefig(out, dpi=140); plt.close(fig)
+    ax.boxplot([d if len(d) else [np.nan]
+               for d in data], tick_labels=PHASES, showfliers=True)
+    ax.set_yscale("log")
+    ax.set_ylabel("latency (ms, log) - successful statements")
+    ax.set_title(
+        "Workload latency by phase (runs with successful ALTER, pooled)")
+    fig.tight_layout()
+    fig.savefig(out, dpi=140)
+    plt.close(fig)
     return True
 
 
 def fig_errors(phase_df, out):
     if phase_df.empty:
         return False
-    agg = phase_df.groupby(["change", "algorithm", "run_id"])["errors"].sum().reset_index()
+    agg = phase_df.groupby(["change", "algorithm", "run_id"])[
+        "errors"].sum().reset_index()
     agg = agg[agg["errors"] > 0]
     if agg.empty:
         return False
     fig, ax = plt.subplots(figsize=(max(7, 0.7 * len(agg)), 5))
     ax.bar(range(len(agg)), agg["errors"], color="tab:red")
-    ax.set_xticks(range(len(agg)), [f"{r.change}\n{r.algorithm}" for r in agg.itertuples()], rotation=90, fontsize=7)
-    ax.set_ylabel("failed workload statements"); ax.set_title("Workload errors per run (runs without errors omitted)")
-    fig.tight_layout(); fig.savefig(out, dpi=140); plt.close(fig)
+    ax.set_xticks(range(len(agg)), [
+                  f"{r.change}\n{r.algorithm}" for r in agg.itertuples()], rotation=90, fontsize=7)
+    ax.set_ylabel("failed workload statements")
+    ax.set_title("Workload errors per run (runs without errors omitted)")
+    fig.tight_layout()
+    fig.savefig(out, dpi=140)
+    plt.close(fig)
     return True
 
 
@@ -176,12 +214,14 @@ def md_table(df, floatfmt="{:.3f}"):
     cols = list(df.columns)
     out = ["| " + " | ".join(cols) + " |", "|" + "---|" * len(cols)]
     for _, r in df.iterrows():
-        out.append("| " + " | ".join(floatfmt.format(v) if isinstance(v, float) and not np.isnan(v) else ("" if (isinstance(v, float) and np.isnan(v)) else str(v)) for v in r) + " |")
+        out.append("| " + " | ".join(floatfmt.format(v) if isinstance(v, float) and not np.isnan(v)
+                   else ("" if (isinstance(v, float) and np.isnan(v)) else str(v)) for v in r) + " |")
     return "\n".join(out) + "\n"
 
 
 def main():
-    p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    p = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("sweep_dir", type=Path)
     args = p.parse_args()
     alter_path = args.sweep_dir / "alter_results.csv"
@@ -198,7 +238,8 @@ def main():
     summary = alter_summary(alter)
     phase_df, wl_all = workload_by_phase(alter, args.sweep_dir)
     summary.to_csv(out_dir / "alter_summary.csv", index=False)
-    alter["outcome"] = alter.apply(lambda r: classify_outcome(r["change"], r["requested_algorithm"], r["status"], r.get("errno")), axis=1)
+    alter["outcome"] = alter.apply(lambda r: classify_outcome(
+        r["change"], r["requested_algorithm"], r["status"], r.get("errno")), axis=1)
     alter.to_csv(out_dir / "classified_alter_results.csv", index=False)
     phase_df.to_csv(out_dir / "workload_by_phase.csv", index=False)
 
@@ -210,7 +251,8 @@ def main():
     }
 
     meta = alter.iloc[0]
-    during = phase_df[phase_df["phase"].isin(PHASES)].copy() if not phase_df.empty else phase_df
+    during = phase_df[phase_df["phase"].isin(
+        PHASES)].copy() if not phase_df.empty else phase_df
     view = (during.pivot_table(index=["change", "algorithm", "operation"], columns="phase",
                                values=["p95_ms", "errors"], aggfunc="max").reset_index()
             if not during.empty else pd.DataFrame())
@@ -227,7 +269,8 @@ def main():
         "## Workload latency per phase (ms)", "",
         f"`low_sample=True` means fewer than {MIN_SAMPLE} statements in that phase: percentiles are not meaningful "
         "(typically the ALTER was too short to overlap many workload statements; use a larger dataset).", "",
-        md_table(phase_df.drop(columns=["run_id"]) if not phase_df.empty else phase_df, "{:.2f}"), "",
+        md_table(phase_df.drop(
+            columns=["run_id"]) if not phase_df.empty else phase_df, "{:.2f}"), "",
         "## Figures", "",
     ] + [f"- {name}" if ok else f"- {name}: not generated (no applicable data)" for name, ok in made.items()]
     (out_dir / "summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
