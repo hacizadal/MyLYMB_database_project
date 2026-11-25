@@ -2,8 +2,7 @@
 
 Configuration comes from environment variables, optionally loaded from a `.env`
 file next to this script (see `.env.example`). Real environment variables win
-over `.env`. Defaults match the docker-compose.yml defaults, so the project
-works without any `.env` file.
+over `.env`. The password must be supplied via environment or generated .env.
 """
 import os
 from datetime import datetime, timezone
@@ -34,7 +33,7 @@ def db_config(with_database=True):
         "host": os.environ.get("MARIADB_HOST", "127.0.0.1"),
         "port": int(os.environ.get("MARIADB_PORT", "3306")),
         "user": os.environ.get("MARIADB_USER", "root"),
-        "password": os.environ.get("MARIADB_ROOT_PASSWORD", "labpass"),
+        "password": os.environ["MARIADB_ROOT_PASSWORD"],
         "charset": "utf8mb4",
     }
     if with_database:

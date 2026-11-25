@@ -1,0 +1,50 @@
+change,algorithm,runs,successes,failures,expected_rejections,unexpected_failures,stddev_s,p25_s,p75_s,mean_s,median_s,min_s,max_s,first_error
+change-type,default,5,5,0,0,0,0.05126402247190514,1.73,1.736,1.7129999999999999,1.731,1.622,1.746,
+change-type,blocking,5,5,0,0,0,0.030675723300356006,1.666,1.688,1.6849999999999998,1.686,1.652,1.733,
+change-type,copy,5,5,0,0,0,2.3488572327836357,1.591,1.658,2.6565999999999996,1.599,1.577,6.858,
+change-type,copy-shared,5,5,0,0,0,0.16316035057574504,1.656,1.735,1.7494,1.67,1.651,2.035,
+change-type,inplace,5,0,5,5,0,,,,,,,,"(1846, 'ALGORITHM=INPLACE is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+change-type,nocopy,5,0,5,5,0,,,,,,,,"(1846, 'ALGORITHM=NOCOPY is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+change-type,instant,5,0,5,5,0,,,,,,,,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+add-index,default,5,5,0,0,0,0.028569214199904037,0.537,0.568,0.5591999999999999,0.549,0.537,0.605,
+add-index,blocking,5,5,0,0,0,0.0315071420474787,2.188,2.23,2.2072000000000003,2.224,2.161,2.233,
+add-index,copy,5,5,0,0,0,2.3582367353597053,2.204,2.294,3.278,2.268,2.129,7.495,
+add-index,copy-shared,5,5,0,0,0,1.7785889913074353,2.233,2.249,3.0236000000000005,2.239,2.192,6.205,
+add-index,inplace,5,5,0,0,0,0.023530830839560223,0.54,0.566,0.5538000000000001,0.543,0.531,0.589,
+add-index,nocopy,5,5,0,0,0,0.013935566009315888,0.53,0.536,0.5358,0.532,0.522,0.559,
+add-index,instant,5,0,5,5,0,,,,,,,,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY')"
+widen-column-60,default,5,5,0,0,0,0.002387467277262665,0.015,0.015,0.0158,0.015,0.014,0.02,
+widen-column-60,blocking,5,5,0,0,0,0.0612519387448267,1.697,1.721,1.7144,1.717,1.633,1.804,
+widen-column-60,copy,5,5,0,0,0,0.013989281611290887,1.648,1.658,1.6547999999999998,1.651,1.64,1.677,
+widen-column-60,copy-shared,5,5,0,0,0,0.026510375327407146,1.696,1.717,1.7116,1.709,1.683,1.753,
+widen-column-60,inplace,5,5,0,0,0,0.0033911649915626335,0.015,0.02,0.018,0.019,0.014,0.022,
+widen-column-60,nocopy,5,5,0,0,0,0.0023452078799117153,0.016,0.02,0.018000000000000002,0.017,0.016,0.021,
+widen-column-60,instant,5,5,0,0,0,0.009833615815151617,0.03,0.043,0.036199999999999996,0.041,0.022,0.045,
+widen-column-100,default,5,5,0,0,0,0.011691877522451216,0.022,0.039,0.030199999999999994,0.025,0.019,0.046,
+widen-column-100,blocking,5,5,0,0,0,0.2266490679442561,2.559,2.96,2.7893999999999997,2.922,2.526,2.98,
+widen-column-100,copy,5,5,0,0,0,0.1844283058535214,2.441,2.511,2.5304,2.443,2.404,2.853,
+widen-column-100,copy-shared,5,5,0,0,0,0.1019166325974323,2.474,2.592,2.553,2.554,2.444,2.701,
+widen-column-100,inplace,5,5,0,0,0,0.00931665175908169,0.03,0.038,0.03660000000000001,0.034,0.029,0.052,
+widen-column-100,nocopy,5,5,0,0,0,0.00443846820423443,0.033,0.039,0.035800000000000005,0.033,0.032,0.042,
+widen-column-100,instant,5,5,0,0,0,0.0038340579025361626,0.034,0.04,0.037200000000000004,0.037,0.033,0.042,
+widen-column-rebuild,default,5,5,0,0,0,0.6410957026840843,3.083,3.868,3.4378,3.813,2.474,3.951,
+widen-column-rebuild,blocking,5,5,0,0,0,0.960427248676338,2.786,4.062,3.4019999999999997,3.831,2.03,4.301,
+widen-column-rebuild,copy,5,5,0,0,0,0.7159338656607884,2.497,3.756,3.2573999999999996,3.654,2.463,3.917,
+widen-column-rebuild,copy-shared,5,5,0,0,0,0.08237839522593281,2.602,2.726,2.6658,2.641,2.584,2.776,
+widen-column-rebuild,inplace,5,0,5,5,0,,,,,,,,"(1846, 'ALGORITHM=INPLACE is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+widen-column-rebuild,nocopy,5,0,5,5,0,,,,,,,,"(1846, 'ALGORITHM=NOCOPY is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+widen-column-rebuild,instant,5,0,5,5,0,,,,,,,,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+add-fk,default,5,5,0,0,0,1.1680921196549523,8.735,9.045,8.481199999999998,9.017,6.413,9.196,
+add-fk,blocking,5,5,0,0,0,1.9701702464507986,6.937,9.174,8.2984,8.751,5.795,10.835,
+add-fk,copy,5,5,0,0,0,0.1045528574454089,6.003,6.161,6.0676000000000005,6.012,5.964,6.198,
+add-fk,copy-shared,5,5,0,0,0,0.15088638109518027,6.034,6.129,6.100199999999999,6.055,5.941,6.342,
+add-fk,inplace,5,0,5,5,0,,,,,,,,"(1846, 'ALGORITHM=INPLACE is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')"
+add-fk,nocopy,5,0,5,5,0,,,,,,,,"(1846, 'ALGORITHM=NOCOPY is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')"
+add-fk,instant,5,0,5,5,0,,,,,,,,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')"
+add-fk-fkchecks-off,default,5,5,0,0,0,0.29611433602579934,0.74,1.169,0.9642,0.813,0.717,1.382,
+add-fk-fkchecks-off,blocking,5,5,0,0,0,0.45569233041603846,3.733,3.967,3.7169999999999996,3.913,2.928,4.044,
+add-fk-fkchecks-off,copy,5,5,0,0,0,0.39187689393481717,3.424,3.662,3.4379999999999997,3.626,2.765,3.713,
+add-fk-fkchecks-off,copy-shared,5,5,0,0,0,0.0751112508216978,3.952,4.045,3.9958,4.029,3.886,4.067,
+add-fk-fkchecks-off,inplace,5,5,0,0,0,0.2593755963848565,1.281,1.379,1.2388,1.35,0.782,1.402,
+add-fk-fkchecks-off,nocopy,5,5,0,0,0,0.3031314896212533,0.77,1.335,1.0918,1.255,0.754,1.345,
+add-fk-fkchecks-off,instant,5,0,5,5,0,,,,,,,,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY')"

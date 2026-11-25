@@ -133,5 +133,5 @@ done
 
 echo "finished_utc=$(date -u +%FT%TZ)" >> "$OUT_DIR/sweep_config.txt"
 echo "Analysing..."
-"$PY" analyze_results.py "$OUT_DIR" || echo "analysis failed (raw CSVs are in $OUT_DIR)" >&2
+"$PY" analyze_results.py "$OUT_DIR" || { echo "analysis failed (raw CSVs are in $OUT_DIR)" >&2; exit 1; }
 echo "Done. Results: $OUT_DIR"

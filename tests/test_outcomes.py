@@ -8,6 +8,8 @@ from analyze_results import alter_summary
     ("change-type", "instant"), ("add-index", "instant"),
     ("add-fk", "inplace"), ("add-fk", "nocopy"),
     ("add-fk", "instant"), ("add-fk-fkchecks-off", "instant"),
+    ("widen-column-rebuild", "instant"), ("widen-column-rebuild", "nocopy"),
+    ("widen-column-rebuild", "inplace"),
 ])
 def test_expected_rejections(change, algorithm):
     assert classify_outcome(change, algorithm, "failure", 1846) == "expected_rejection"

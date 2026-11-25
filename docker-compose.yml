@@ -1,14 +1,14 @@
 # MariaDB 11.4 lab instance. Keep this exact major version: online-DDL behaviour differs between versions.
-# Configuration comes from .env (see .env.example); defaults below make it work without a .env file.
+# Configuration comes from .env (see .env.example); run python configure.py before startup.
 services:
   mariadb:
-    image: mariadb:11.4
+    image: mariadb:11.4.13
     container_name: mariadb-lab
     environment:
-      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-labpass}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:?Run python configure.py first}
       MARIADB_DATABASE: ${MARIADB_DATABASE:-schemalab}
     ports:
-      # Bound to localhost only: root/labpass must not be reachable from the network.
+      # Bound to localhost only: the lab database must not be reachable from the network.
       - "127.0.0.1:${MARIADB_PORT:-3306}:3306"
     volumes:
       - mariadb_lab_data:/var/lib/mysql

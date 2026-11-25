@@ -1,0 +1,8 @@
+timestamp_utc,alter_state,progress_pct,waiting_sessions
+2026-11-24T21:00:18.037+00:00,copy to tmp table,3.136,4
+2026-11-24T21:00:18.301+00:00,copy to tmp table,42.152,4
+2026-11-24T21:00:18.563+00:00,copy to tmp table,80.218,4
+2026-11-24T21:00:18.827+00:00,Enabling keys,0.0,4
+2026-11-24T21:00:19.097+00:00,Enabling keys,0.0,4
+2026-11-24T21:00:19.357+00:00,Enabling keys,0.0,4
+2026-11-24T21:00:19.621+00:00,Enabling keys,0.0,4

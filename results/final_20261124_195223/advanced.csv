@@ -1,0 +1,31 @@
+case,sql,seconds,error_code,message
+boundary_30_r1,"ALTER TABLE lab_probe MODIFY v VARCHAR(100), ALGORITHM=INSTANT, LOCK=NONE",0.030912499991245568,0,
+boundary_31_r1,"ALTER TABLE lab_probe MODIFY v VARCHAR(100), ALGORITHM=INSTANT, LOCK=NONE",0.02728089998709038,0,
+boundary_32_r1,"ALTER TABLE lab_probe MODIFY v VARCHAR(100), ALGORITHM=INSTANT, LOCK=NONE",0.014334800012875348,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+boundary_50_r1,"ALTER TABLE lab_probe MODIFY v VARCHAR(100), ALGORITHM=INSTANT, LOCK=NONE",0.011196999985259026,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+boundary_63_r1,"ALTER TABLE lab_probe MODIFY v VARCHAR(100), ALGORITHM=INSTANT, LOCK=NONE",0.012740399979520589,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+boundary_64_r1,"ALTER TABLE lab_probe MODIFY v VARCHAR(100), ALGORITHM=INSTANT, LOCK=NONE",0.022515100019518286,0,
+mdl_timeout_r1,"ALTER TABLE lab_probe MODIFY v VARCHAR(60), ALGORITHM=INSTANT, LOCK=NONE",2.018215699994471,1205,"(1205, 'Lock wait timeout exceeded; try restarting transaction')"
+mdl_released_r1,"ALTER TABLE lab_probe MODIFY v VARCHAR(60), ALGORITHM=INSTANT, LOCK=NONE",0.022625200042966753,0,
+fk_checks_1_r1,"ALTER TABLE lab_child ADD FOREIGN KEY(parent_id) REFERENCES lab_parent(id), ALGORITHM=COPY",0.032385799975600094,1452,"(1452, 'Cannot add or update a child row: a foreign key constraint fails (`schemalab`.`#sql-alter-1-1cea`, CONSTRAINT `#sql-alter-1-1cea_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `lab_parent` (`id`))'); orphan_count_after=1"
+fk_checks_0_r1,"ALTER TABLE lab_child ADD FOREIGN KEY(parent_id) REFERENCES lab_parent(id), ALGORITHM=COPY",0.04683339997427538,0,; orphan_count_after=1
+boundary_30_r2,"ALTER TABLE lab_probe MODIFY v VARCHAR(100), ALGORITHM=INSTANT, LOCK=NONE",0.024068899976555258,0,
+boundary_31_r2,"ALTER TABLE lab_probe MODIFY v VARCHAR(100), ALGORITHM=INSTANT, LOCK=NONE",0.029474599985405803,0,
+boundary_32_r2,"ALTER TABLE lab_probe MODIFY v VARCHAR(100), ALGORITHM=INSTANT, LOCK=NONE",0.01221439999062568,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+boundary_50_r2,"ALTER TABLE lab_probe MODIFY v VARCHAR(100), ALGORITHM=INSTANT, LOCK=NONE",0.011155299958772957,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+boundary_63_r2,"ALTER TABLE lab_probe MODIFY v VARCHAR(100), ALGORITHM=INSTANT, LOCK=NONE",0.011140699964016676,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+boundary_64_r2,"ALTER TABLE lab_probe MODIFY v VARCHAR(100), ALGORITHM=INSTANT, LOCK=NONE",0.02333100000396371,0,
+mdl_timeout_r2,"ALTER TABLE lab_probe MODIFY v VARCHAR(60), ALGORITHM=INSTANT, LOCK=NONE",2.0155245999922045,1205,"(1205, 'Lock wait timeout exceeded; try restarting transaction')"
+mdl_released_r2,"ALTER TABLE lab_probe MODIFY v VARCHAR(60), ALGORITHM=INSTANT, LOCK=NONE",0.021202299976721406,0,
+fk_checks_1_r2,"ALTER TABLE lab_child ADD FOREIGN KEY(parent_id) REFERENCES lab_parent(id), ALGORITHM=COPY",0.02695070003392175,1452,"(1452, 'Cannot add or update a child row: a foreign key constraint fails (`schemalab`.`#sql-alter-1-1cea`, CONSTRAINT `#sql-alter-1-1cea_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `lab_parent` (`id`))'); orphan_count_after=1"
+fk_checks_0_r2,"ALTER TABLE lab_child ADD FOREIGN KEY(parent_id) REFERENCES lab_parent(id), ALGORITHM=COPY",0.03841229999670759,0,; orphan_count_after=1
+boundary_30_r3,"ALTER TABLE lab_probe MODIFY v VARCHAR(100), ALGORITHM=INSTANT, LOCK=NONE",0.02147000003606081,0,
+boundary_31_r3,"ALTER TABLE lab_probe MODIFY v VARCHAR(100), ALGORITHM=INSTANT, LOCK=NONE",0.020314899971708655,0,
+boundary_32_r3,"ALTER TABLE lab_probe MODIFY v VARCHAR(100), ALGORITHM=INSTANT, LOCK=NONE",0.012228599982336164,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+boundary_50_r3,"ALTER TABLE lab_probe MODIFY v VARCHAR(100), ALGORITHM=INSTANT, LOCK=NONE",0.01109879999421537,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+boundary_63_r3,"ALTER TABLE lab_probe MODIFY v VARCHAR(100), ALGORITHM=INSTANT, LOCK=NONE",0.011196000035852194,1846,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+boundary_64_r3,"ALTER TABLE lab_probe MODIFY v VARCHAR(100), ALGORITHM=INSTANT, LOCK=NONE",0.024570600013248622,0,
+mdl_timeout_r3,"ALTER TABLE lab_probe MODIFY v VARCHAR(60), ALGORITHM=INSTANT, LOCK=NONE",2.0195662999758497,1205,"(1205, 'Lock wait timeout exceeded; try restarting transaction')"
+mdl_released_r3,"ALTER TABLE lab_probe MODIFY v VARCHAR(60), ALGORITHM=INSTANT, LOCK=NONE",0.024695699976291507,0,
+fk_checks_1_r3,"ALTER TABLE lab_child ADD FOREIGN KEY(parent_id) REFERENCES lab_parent(id), ALGORITHM=COPY",0.026567500026430935,1452,"(1452, 'Cannot add or update a child row: a foreign key constraint fails (`schemalab`.`#sql-alter-1-1cea`, CONSTRAINT `#sql-alter-1-1cea_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `lab_parent` (`id`))'); orphan_count_after=1"
+fk_checks_0_r3,"ALTER TABLE lab_child ADD FOREIGN KEY(parent_id) REFERENCES lab_parent(id), ALGORITHM=COPY",0.05274770001415163,0,; orphan_count_after=1

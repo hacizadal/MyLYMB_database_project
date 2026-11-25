@@ -26,3 +26,7 @@ results/**/workload_*.log
 # Focused 11.4.13 100k-row concurrent-write evidence
 !results/sweep_20261116_160234/
 !results/sweep_20261116_160234/**
+
+!results/final_*/
+!results/final_*/**
+.benv/

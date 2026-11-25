@@ -1,0 +1,23 @@
+  user_table: 100,000/1,000,000
+  user_table: 200,000/1,000,000
+  user_table: 300,000/1,000,000
+  user_table: 400,000/1,000,000
+  user_table: 500,000/1,000,000
+  user_table: 600,000/1,000,000
+  user_table: 700,000/1,000,000
+  user_table: 800,000/1,000,000
+  user_table: 900,000/1,000,000
+  user_table: 1,000,000/1,000,000
+  orders: 100,000/1,000,000
+  orders: 200,000/1,000,000
+  orders: 300,000/1,000,000
+  orders: 400,000/1,000,000
+  orders: 500,000/1,000,000
+  orders: 600,000/1,000,000
+  orders: 700,000/1,000,000
+  orders: 800,000/1,000,000
+  orders: 900,000/1,000,000
+  orders: 1,000,000/1,000,000
+user_table: inserted 1,000,000 rows in 35.2s (28,437 rows/s)
+orders: inserted 1,000,000 rows in 20.2s (49,427 rows/s)
+reset done in 55.6s (user_table=1,000,000, orders=1,000,000, seed=42)

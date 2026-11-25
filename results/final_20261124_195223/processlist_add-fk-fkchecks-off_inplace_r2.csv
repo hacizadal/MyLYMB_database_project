@@ -1,0 +1,7 @@
+timestamp_utc,alter_state,progress_pct,waiting_sessions
+2026-11-25T00:11:30.499+00:00,altering table,0.0,0
+2026-11-25T00:11:30.754+00:00,altering table,0.0,0
+2026-11-25T00:11:31.016+00:00,altering table,0.0,0
+2026-11-25T00:11:31.279+00:00,altering table,0.0,0
+2026-11-25T00:11:31.538+00:00,altering table,0.0,0
+2026-11-25T00:11:31.800+00:00,altering table,0.0,0

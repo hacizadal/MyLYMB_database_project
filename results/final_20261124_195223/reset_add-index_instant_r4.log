@@ -1,0 +1,12 @@
+  user_table: 100,000/1,000,000
+  user_table: 200,000/1,000,000
+  user_table: 300,000/1,000,000
+  user_table: 400,000/1,000,000
+  user_table: 500,000/1,000,000
+  user_table: 600,000/1,000,000
+  user_table: 700,000/1,000,000
+  user_table: 800,000/1,000,000
+  user_table: 900,000/1,000,000
+  user_table: 1,000,000/1,000,000
+user_table: inserted 1,000,000 rows in 15.4s (64,917 rows/s)
+reset done in 15.5s (user_table=1,000,000, orders=0, seed=42)
