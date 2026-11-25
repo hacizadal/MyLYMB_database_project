@@ -86,7 +86,13 @@ def workload_by_phase(alter, sweep_dir):
             run.get("workload_csv"), str) and run["workload_csv"] else None
         if path is None:
             continue
-        wl = pd.read_csv(path)
+        try:
+            wl = pd.read_csv(path)
+        except pd.errors.EmptyDataError:
+            # A 0-byte workload CSV (stop signal landed before the buffer was
+            # flushed, seen on Windows). Skip this run instead of aborting the analysis.
+            print(f"warning: {path} is empty, skipping workload data for this run", file=sys.stderr)
+            continue
         if wl.empty:
             continue
         start = pd.Timestamp(run["started_at_utc"]).tz_convert("UTC")

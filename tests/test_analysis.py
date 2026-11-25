@@ -39,3 +39,14 @@ def test_refused_alter_not_plotted(tmp_path):
     df = phases('baseline', 'during')
     df['alter_status'] = 'failure'
     assert fig_p95(df, tmp_path / 'p95.png') is False
+
+
+def test_empty_workload_csv_is_skipped(tmp_path):
+    from analyze_results import workload_by_phase
+    (tmp_path / 'workload_x.csv').write_text('')
+    alter = pd.DataFrame([dict(
+        run_id='r1', change='add-index', requested_algorithm='copy', status='success',
+        workload_csv=str(tmp_path / 'workload_x.csv'),
+        started_at_utc='2026-01-01T00:00:00+00:00', ended_at_utc='2026-01-01T00:00:01+00:00')])
+    phase_df, wl_all = workload_by_phase(alter, tmp_path)
+    assert phase_df.empty and wl_all.empty
