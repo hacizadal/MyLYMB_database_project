@@ -8,7 +8,7 @@ exploration and for checking a result by eye. **The recorded benchmark always go
 Reset before each file (each scenario needs an `orders` table without a foreign key):
 
     python reset_db.py --rows 100000 --change add-fk
-    docker exec -i mariadb-lab mariadb -uroot -plabpass schemalab < tests/add-fk/01_default_checks_on.sql
+    docker compose exec -T mariadb sh -c 'mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" schemalab' < tests/add-fk/01_default_checks_on.sql
 
 | File | Session setting | ALTER clause |
 |---|---|---|
