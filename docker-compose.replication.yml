@@ -1,0 +1,23 @@
+services:
+  primary:
+    image: mariadb:11.4.13
+    environment:
+      MARIADB_ROOT_PASSWORD: ${REPL_LAB_PASSWORD:?Use replication_benchmark.sh}
+    command: [--server-id=101, --log-bin=primary-bin, --binlog-format=ROW, --innodb-buffer-pool-size=512M]
+    ports: ['127.0.0.1:13306:3306']
+    healthcheck:
+      test: [CMD, healthcheck.sh, --connect, --innodb_initialized]
+      interval: 2s
+      timeout: 5s
+      retries: 60
+  replica:
+    image: mariadb:11.4.13
+    environment:
+      MARIADB_ROOT_PASSWORD: ${REPL_LAB_PASSWORD:?Use replication_benchmark.sh}
+    command: [--server-id=102, --relay-log=replica-relay, --read-only=ON, --innodb-buffer-pool-size=512M]
+    ports: ['127.0.0.1:13307:3306']
+    healthcheck:
+      test: [CMD, healthcheck.sh, --connect, --innodb_initialized]
+      interval: 2s
+      timeout: 5s
+      retries: 60

@@ -1,0 +1,4 @@
+configuration,repeats,median_alter_s,max_sequence_gap,max_heartbeat_age_ms,all_consistent
+instant,3,0.023020200023893267,1,126.81174278259277,True
+online-copy,3,0.2857132999924943,9,373.3389377593994,True
+blocking-copy,3,0.30847590003395453,8,613.2829189300537,True

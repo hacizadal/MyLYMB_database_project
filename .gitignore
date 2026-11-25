@@ -30,3 +30,6 @@ results/**/workload_*.log
 !results/final_*/
 !results/final_*/**
 .benv/
+
+!results/replication_*/
+!results/replication_*/**

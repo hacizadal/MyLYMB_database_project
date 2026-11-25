@@ -67,3 +67,7 @@ it is stored as `status=failure` with errno and message, with no special-casing.
 * A short ALTER overlaps few workload statements; use a larger `--rows` for meaningful percentiles.
 * One repetition per combination by default; use `--repeats 3` or more before drawing conclusions.
 * Wall-clock time includes time spent waiting for a metadata lock held by the workload.
+
+## Final benchmark hardware (reported after execution)
+
+Intel Core i7-13700H (14 cores, 20 logical processors); 16 GB RAM (16,888,094,720 bytes reported); 1 TB SSD (321JN1024GB). Windows 11; Docker Engine 29.8.0, Compose v5.5.1; Docker reported 20 CPUs and 8,179,580,928 bytes RAM. Python 3.13.9; MariaDB 11.4.13. Hardware was reported after the benchmark, not independently monitored during it. On 2026-11-25 the local test suite reported 69 passed in 6.73 seconds.

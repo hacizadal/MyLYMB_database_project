@@ -30,7 +30,7 @@ Historical 100k-row console evidence is retained [separately](results/sweep_2026
 
 ## Quick start
 
-Requires Docker Compose v2, Python 3.10+, Bash (Git Bash or WSL on Windows). Use a disposable local database: the harness drops and recreates its tables. Do not point it at production.
+Requires Docker Compose with `up --wait` support, Python 3.10+, Bash (Git Bash or WSL on Windows). Use a disposable local database: the harness drops and recreates its tables. Do not point it at production.
 
 ```bash
 python -m venv .venv
@@ -60,7 +60,23 @@ The VARCHAR boundary is subtle: utf8mb4 VARCHAR(30) has a maximum of 120 bytes; 
 
 An open transaction caused INSTANT to time out (error 1205) in 2.0182, 2.0155 and 2.0196 s; after release it succeeded in 22.6, 21.2 and 24.7 ms. This probe measures DDL waiting, not application downtime. With an orphan row, all three validated foreign-key additions failed (1452); all three unchecked additions succeeded and retained the orphan. Never disable validation solely for speed.
 
-The benchmark ran on Windows 11, 20 logical CPUs, a 1 GiB InnoDB buffer pool, four writers, 10 ms configured interval, 10 s baseline and 5 s recovery. RAM, storage type and Docker resource limits were not recorded. The sweep is sequential rather than randomized; cache and background activity can influence timings (e.g. online type-change COPY ranged from 1.577 to 6.858 s). Results describe this machine and workload only. Replication remains unmeasured; see [replication protocol](docs/replication_protocol.md). No replica freshness claim is made.
+The benchmark ran on Windows 11, 20 logical CPUs, a 1 GiB InnoDB buffer pool, four writers, 10 ms configured interval, 10 s baseline and 5 s recovery. Post-benchmark inventory: Intel Core i7-13700H (14 cores, 20 threads), 15.73 GiB RAM, 1 TB SSD, Docker reporting 20 CPUs and 7.62 GiB RAM; Docker 29.8.0, Compose v5.5.1, Python 3.13.9. These limits were collected after the benchmark. The sweep is sequential rather than randomized; cache and background activity can influence timings (e.g. online type-change COPY ranged from 1.577 to 6.858 s). Results describe this machine and workload only. Replication was measured separately at 100,000 rows (below).
+
+## Measured replication impact (100,000 rows)
+
+The same VARCHAR(30) → VARCHAR(60) change was tested on MariaDB 11.4.13 with one primary, one replica, one concurrent writer and three repetitions per configuration in a fixed shuffled order. All nine runs completed; row counts, ordered SHA-256 digests, table definitions and final heartbeat matched after catch-up. All sampled replication threads were running with zero reported I/O or SQL error codes.
+
+| Configuration | ALTER times (ms, repeats 1–3) | Median (ms) | Sample SD (ms) | Peak sequence gap | Peak heartbeat age (ms) | Worst overlapping write (ms) |
+|---|---|---:|---:|---:|---:|---:|
+| instant | 23.0, 22.4, 24.9 | 23.0 | 1.3 | 1 | 126.8 | 17.1 |
+| online-copy | 285.7, 375.6, 271.3 | 285.7 | 56.5 | 9 | 373.3 | 33.6 |
+| blocking-copy | 271.1, 317.9, 308.5 | 308.5 | 24.7 | 8 | 613.3 | 293.2 |
+
+INSTANT had a 12.4× shorter median duration than online COPY. Online COPY reduced the worst observed overlapping write latency by 88.5% versus exclusive COPY, yet its sampled sequence gap reached nine transactions. Primary write availability therefore does not guarantee replica freshness. Blocking COPY had the highest heartbeat age, but not the highest sequence gap. Heartbeat age includes primary stalls and heartbeat pacing; sequential reads can overestimate the gap, and the approximately 100 ms sampler can miss short events. Only three repeats, one writer and shared local hardware were tested; these results are not production latency guarantees.
+
+[Individual replication runs](results/replication_20261125_111030/replication_results.csv) · [Summary](results/replication_20261125_111030/replication_summary.csv) · [Methodology](docs/replication_protocol.md)
+
+![Replication sequence gap](results/replication_20261125_111030/replication_lag.png)
 
 ## Team
 
@@ -76,3 +92,7 @@ The benchmark ran on Windows 11, 20 logical CPUs, a 1 GiB InnoDB buffer pool, fo
 ## Further reading
 
 [Original detailed report](docs/original_report.md) · [MariaDB ALTER TABLE](https://mariadb.com/docs/server/reference/sql-statements/data-definition/alter/alter-table) · [Area assignment](https://mariadb.org/bachelor_hackathon_2026-09/)
+
+### Replication extension
+
+Run `bash replication_benchmark.sh` for a separate primary/replica experiment (100,000 rows, three repetitions per configuration). See [replication methodology](docs/replication_protocol.md). The nine measured runs are linked above. Existing million-row results need not be rerun.
