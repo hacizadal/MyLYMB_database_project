@@ -7,4 +7,4 @@ compose=(docker compose -p "$project" -f docker-compose.replication.yml)
 cleanup() { "${compose[@]}" down -v; }
 trap cleanup EXIT
 "${compose[@]}" up -d --wait
-python replication_benchmark.py --rows "${ROWS:-100000}" --repeats "${REPEATS:-3}"
+python replication_benchmark.py --rows "${ROWS:-100000}" --repeats "${REPEATS:-3}" --writers "${WRITERS:-1}"
