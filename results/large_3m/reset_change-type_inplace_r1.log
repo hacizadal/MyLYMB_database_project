@@ -1,0 +1,32 @@
+  user_table: 100,000/3,000,000
+  user_table: 200,000/3,000,000
+  user_table: 300,000/3,000,000
+  user_table: 400,000/3,000,000
+  user_table: 500,000/3,000,000
+  user_table: 600,000/3,000,000
+  user_table: 700,000/3,000,000
+  user_table: 800,000/3,000,000
+  user_table: 900,000/3,000,000
+  user_table: 1,000,000/3,000,000
+  user_table: 1,100,000/3,000,000
+  user_table: 1,200,000/3,000,000
+  user_table: 1,300,000/3,000,000
+  user_table: 1,400,000/3,000,000
+  user_table: 1,500,000/3,000,000
+  user_table: 1,600,000/3,000,000
+  user_table: 1,700,000/3,000,000
+  user_table: 1,800,000/3,000,000
+  user_table: 1,900,000/3,000,000
+  user_table: 2,000,000/3,000,000
+  user_table: 2,100,000/3,000,000
+  user_table: 2,200,000/3,000,000
+  user_table: 2,300,000/3,000,000
+  user_table: 2,400,000/3,000,000
+  user_table: 2,500,000/3,000,000
+  user_table: 2,600,000/3,000,000
+  user_table: 2,700,000/3,000,000
+  user_table: 2,800,000/3,000,000
+  user_table: 2,900,000/3,000,000
+  user_table: 3,000,000/3,000,000
+user_table: inserted 3,000,000 rows in 95.8s (31,316 rows/s)
+reset done in 95.9s (user_table=3,000,000, orders=0, seed=42)

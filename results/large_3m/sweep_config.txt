@@ -1,0 +1,15 @@
+sweep_id=large_3m
+started_utc=2026-11-28T14:50:22Z
+rows=3000000
+changes=add-index change-type add-fk
+algorithms=default blocking copy copy-shared inplace nocopy instant
+repeats=3
+baseline_secs=10
+after_secs=5
+threads=2
+interval=0.05
+lock_timeout=10
+python=Python 3.13.9
+server_version=11.4.13-MariaDB-ubu2404
+buffer_pool_bytes=1073741824
+finished_utc=2026-11-28T16:40:38Z

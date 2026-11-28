@@ -1,0 +1,22 @@
+change,algorithm,runs,successes,failures,expected_rejections,unexpected_failures,stddev_s,p25_s,p75_s,mean_s,median_s,min_s,max_s,first_error
+add-index,default,3,3,0,0,0,0.0562405547625554,1.7225000000000001,1.7785,1.752,1.746,1.699,1.811,
+add-index,blocking,3,3,0,0,0,1.303361423397209,7.302,8.5135,7.768999999999999,8.324,6.28,8.703,
+add-index,copy,3,3,0,0,0,0.03406366588218802,5.7605,5.79,5.770333333333333,5.79,5.731,5.79,
+add-index,copy-shared,3,3,0,0,0,0.6688604737412231,5.9005,6.48,6.286666666666666,5.901,5.9,7.059,
+add-index,inplace,3,3,0,0,0,0.01184623709594455,1.5705,1.581,1.5773333333333335,1.571,1.57,1.591,
+add-index,nocopy,3,3,0,0,0,0.043650124092988976,1.5939999999999999,1.637,1.6176666666666666,1.609,1.579,1.665,
+add-index,instant,3,0,3,3,0,,,,,,,,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY')"
+change-type,default,3,3,0,0,0,0.10440306508910562,4.75,4.845000000000001,4.785,4.835,4.665,4.855,
+change-type,blocking,3,3,0,0,0,0.044635561308594876,4.8215,4.8655,4.841333333333334,4.85,4.793,4.881,
+change-type,copy,3,3,0,0,0,0.0346554469023267,4.4905,4.521,4.501,4.52,4.461,4.522,
+change-type,copy-shared,3,3,0,0,0,0.005131601439446752,4.7325,4.7375,4.735333333333333,4.734,4.731,4.741,
+change-type,inplace,3,0,3,3,0,,,,,,,,"(1846, 'ALGORITHM=INPLACE is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+change-type,nocopy,3,0,3,3,0,,,,,,,,"(1846, 'ALGORITHM=NOCOPY is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+change-type,instant,3,0,3,3,0,,,,,,,,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY')"
+add-fk,default,3,3,0,0,0,0.258571073401492,12.9115,13.1475,13.06,12.938,12.885,13.357,
+add-fk,blocking,3,3,0,0,0,0.12951576480619437,13.2485,13.377500000000001,13.309666666666667,13.323,13.174,13.432,
+add-fk,copy,3,3,0,0,0,0.20494877408757614,13.155,13.357,13.246,13.286,13.024,13.428,
+add-fk,copy-shared,3,3,0,0,0,0.041488954353337125,12.902000000000001,12.943,12.924333333333331,12.917,12.887,12.969,
+add-fk,inplace,3,0,3,3,0,,,,,,,,"(1846, 'ALGORITHM=INPLACE is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')"
+add-fk,nocopy,3,0,3,3,0,,,,,,,,"(1846, 'ALGORITHM=NOCOPY is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')"
+add-fk,instant,3,0,3,3,0,,,,,,,,"(1846, 'ALGORITHM=INSTANT is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY')"

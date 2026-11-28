@@ -1,0 +1,18 @@
+timestamp_utc,alter_state,progress_pct,waiting_sessions
+2026-11-28T15:40:07.542+00:00,copy to tmp table,0.971,0
+2026-11-28T15:40:07.801+00:00,copy to tmp table,15.131,0
+2026-11-28T15:40:08.065+00:00,copy to tmp table,29.829,0
+2026-11-28T15:40:08.345+00:00,copy to tmp table,45.019,0
+2026-11-28T15:40:08.610+00:00,copy to tmp table,59.845,0
+2026-11-28T15:40:08.873+00:00,copy to tmp table,74.454,0
+2026-11-28T15:40:09.137+00:00,copy to tmp table,88.8,0
+2026-11-28T15:40:09.419+00:00,Enabling keys,0.0,0
+2026-11-28T15:40:09.684+00:00,Enabling keys,0.0,0
+2026-11-28T15:40:09.946+00:00,Enabling keys,0.0,0
+2026-11-28T15:40:10.214+00:00,Enabling keys,0.0,0
+2026-11-28T15:40:10.473+00:00,Enabling keys,0.0,0
+2026-11-28T15:40:10.742+00:00,Enabling keys,0.0,0
+2026-11-28T15:40:11.001+00:00,Enabling keys,0.0,0
+2026-11-28T15:40:11.267+00:00,Enabling keys,0.0,0
+2026-11-28T15:40:11.529+00:00,Enabling keys,0.0,0
+2026-11-28T15:40:11.792+00:00,Enabling keys,0.0,0
